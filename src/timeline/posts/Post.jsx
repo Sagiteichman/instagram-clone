@@ -29,9 +29,9 @@ function Post() {
             <FavoriteBorderIcon className='postIcon' />
             <ChatBubbleOutLineIcon className='postIcon' />
             <TelegramIcon className='postIcon' />
-            <div className='post__iconsSave'>
-              <BookmarkBorderIcon className='postIcon' />
-            </div>
+          </div>
+          <div className='post__iconsSave'>
+            <BookmarkBorderIcon className='postIcon' />
           </div>
         </div>
         Liked by 21 people
