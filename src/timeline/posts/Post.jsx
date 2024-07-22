@@ -7,13 +7,13 @@ import ChatBubbleOutLineIcon from '@mui/icons-material/ChatBubbleOutline'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
-function Post() {
+function Post({ user, postImage, likes, timestamp }) {
   return (
     <div className='post'>
       <div className='post__header'>
         <div className='post__headerAuthor'>
-          <Avatar>J</Avatar>
-          Jude • <span>12h</span>
+          <Avatar>{user.CharAt(0).toUpperCase()}</Avatar>
+          {user}• <span>{timestamp}</span>
         </div>
         <MoreHorizIcon />
       </div>
