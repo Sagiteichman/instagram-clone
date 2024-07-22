@@ -1,10 +1,10 @@
 import './App.css'
-import { Homepage } from './Homepage'
+import { Index } from './Index.jsx'
 
 function App() {
   return (
     <div className='app'>
-      <Homepage />
+      <Index />
     </div>
   )
 }

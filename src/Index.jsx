@@ -1,16 +1,16 @@
 import React from 'react'
-import './Homepage.css'
+import './index.css'
 import { Sidenav } from './navigation/Sidenav'
-import { Timeline } from './timeline/Timeline'
+import { PostList } from './timeline/PostList'
 
-export function Homepage() {
+export function Index() {
   return (
     <div className='homepage'>
       <div className='homepage__nav'>
         <Sidenav />
       </div>
       <div className='homepage__timeline'>
-        <Timeline />
+        <PostList />
       </div>
     </div>
   )

@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import './Timeline.css'
 import Sugesstions from './Sugesstions.jsx'
-import Post from './posts/Post.jsx'
+import PostPreview from './posts/PostPreview.jsx'
 
-export function Timeline() {
-  const { posts, setPosts } = useState([
+export function PostList() {
+  const [posts, setPosts] = useState([
     {
       user: 'Jude',
       postImage: '../src/images/JudeBellingham.png',
@@ -13,7 +12,7 @@ export function Timeline() {
     },
     {
       user: 'Modrich',
-      postImage: '../src/images/lukaModrich.png',
+      postImage: '../images/lukaModrich.png',
       likes: 51,
       timestamp: '1w',
     },
@@ -31,12 +30,13 @@ export function Timeline() {
     },
   ])
 
+  if (!posts || !posts.length) return <div>loading Post</div>
   return (
     <div className='timeline'>
       <div className='timeline__left'>
         <div className='timeline__post'>
           {posts.map((post) => (
-            <Post
+            <PostPreview
               user={post.user}
               postImage={post.postImage}
               likes={post.likes}
