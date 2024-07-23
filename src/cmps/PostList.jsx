@@ -1,50 +1,25 @@
-import React, { useState } from 'react'
-
+import React, { useState, useEffect } from 'react'
 import Suggestions from './Suggestions.jsx'
 import PostPreview from './PostPreview.jsx'
-
-import {
-  DEMO_PHOTO_URL,
-  DEMO_PHOTO_URL_2,
-  DEMO_PHOTO_URL_3,
-  DEMO_PHOTO_URL_4,
-} from '../services/demo.data.service.js'
+import { postService } from '../services/posts.service.js'
 
 export function PostList() {
-  const [posts, setPosts] = useState([
-    {
-      user: 'Jude',
-      postImage: DEMO_PHOTO_URL,
-      likes: 43,
-      timestamp: '2d',
-    },
-    {
-      user: 'Valverde',
-      postImage: DEMO_PHOTO_URL_2,
-      likes: 108,
-      timestamp: '4h',
-    },
-    {
-      user: 'Modrich',
-      postImage: DEMO_PHOTO_URL_3,
-      likes: 51,
-      timestamp: '1w',
-    },
-    {
-      user: 'Kross',
-      postImage: DEMO_PHOTO_URL_4,
-      likes: 108,
-      timestamp: '4d',
-    },
-  ])
+  const [posts, setPosts] = useState([])
 
-  if (!posts || !posts.length) return <div>loading Post</div>
+  useEffect(() => {
+    const posts = postService.getPosts()
+    setPosts(posts)
+  }, [])
+
+  if (!posts.length) return <div>Loading Posts...</div>
+
   return (
     <div className='timeline'>
       <div className='timeline__left'>
         <div className='timeline__post'>
           {posts.map((post) => (
             <PostPreview
+              key={post.id}
               user={post.user}
               postImage={post.postImage}
               likes={post.likes}

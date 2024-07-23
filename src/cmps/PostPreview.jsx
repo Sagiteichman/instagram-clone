@@ -1,10 +1,8 @@
 import React from 'react'
-
 import { Avatar } from '@mui/material'
-// Icons
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import ChatBubbleOutLineIcon from '@mui/icons-material/ChatBubbleOutline'
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 
@@ -14,7 +12,7 @@ function PostPreview({ user, postImage, likes, timestamp }) {
       <div className='post__header'>
         <div className='post__headerAuthor'>
           <Avatar>{user.charAt(0).toUpperCase() || 'empty'}</Avatar>
-          {user}• <span>{timestamp}</span>
+          {user} • <span>{timestamp}</span>
         </div>
         <MoreHorizIcon />
       </div>
@@ -25,7 +23,7 @@ function PostPreview({ user, postImage, likes, timestamp }) {
         <div className='post__footerIcons'>
           <div className='post__iconsMain'>
             <FavoriteBorderIcon className='postIcon' />
-            <ChatBubbleOutLineIcon className='postIcon' />
+            <ChatBubbleOutlineIcon className='postIcon' />
             <TelegramIcon className='postIcon' />
           </div>
           <div className='post__iconsSave'>
