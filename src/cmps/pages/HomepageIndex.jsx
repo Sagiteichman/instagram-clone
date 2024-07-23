@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/pages/HomepageIndex.scss'
+
 import { Sidenav } from '../Sidenav'
 import { PostList } from '../PostList'
 

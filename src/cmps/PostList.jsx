@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import Sugesstions from './Sugesstions.jsx'
+
+import Suggestions from './Suggestions.jsx'
 import PostPreview from './PostPreview.jsx'
-import '../assets/images/JudeBellingham.png'
+
 import {
   DEMO_PHOTO_URL,
   DEMO_PHOTO_URL_2,
@@ -53,7 +54,7 @@ export function PostList() {
         </div>
       </div>
       <div className='timeline__right'>
-        <Sugesstions />
+        <Suggestions />
       </div>
     </div>
   )

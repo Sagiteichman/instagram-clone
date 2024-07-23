@@ -1,6 +1,6 @@
-import './App.scss'
-import './assets/main.scss'
 import { HomepageIndex } from './cmps/pages/HomepageIndex.jsx'
+
+import './assets/main.scss'
 
 function App() {
   return (

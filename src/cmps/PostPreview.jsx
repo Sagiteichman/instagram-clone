@@ -1,13 +1,13 @@
-import { Avatar } from '@mui/material'
 import React from 'react'
-import '../assets/cmps/PostPreview.scss'
+
+import { Avatar } from '@mui/material'
+// Icons
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ChatBubbleOutLineIcon from '@mui/icons-material/ChatBubbleOutline'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import { DEMO_PHOTO_URL } from '../services/demo.data.service'
-import '../assets/images/ToniKross.png'
+
 function PostPreview({ user, postImage, likes, timestamp }) {
   return (
     <div className='post'>

@@ -1,13 +1,13 @@
 import React from 'react'
-import '../assets/cmps/Sugesstions.scss'
+
 import { Avatar } from '@mui/material'
 
-export function Sugesstions() {
+export function Suggestions() {
   return (
-    <div className='sugessions'>
-      <div className='sugesstions__title'>Sugesstions for you</div>
-      <div className='sugesstions__usernames'>
-        <div className='sugesstions__username'>
+    <div className='suggestions'>
+      <div className='suggestions__title'>Suggestions for you</div>
+      <div className='suggestions__usernames'>
+        <div className='suggestions__username'>
           <div className='username__left'>
             <span className='avatar'>
               <Avatar>J</Avatar>
@@ -20,7 +20,7 @@ export function Sugesstions() {
           <button className='follow__button'>Follow</button>
         </div>
 
-        <div className='sugesstions__username'>
+        <div className='suggestions__username'>
           <div className='username__left'>
             <span className='avatar'>
               <Avatar>J</Avatar>
@@ -33,7 +33,7 @@ export function Sugesstions() {
           <button className='follow__button'>Follow</button>
         </div>
 
-        <div className='sugesstions__username'>
+        <div className='suggestions__username'>
           <div className='username__left'>
             <span className='avatar'>
               <Avatar>J</Avatar>
@@ -46,7 +46,7 @@ export function Sugesstions() {
           <button className='follow__button'>Follow</button>
         </div>
 
-        <div className='sugesstions__username'>
+        <div className='suggestions__username'>
           <div className='username__left'>
             <span className='avatar'>
               <Avatar>J</Avatar>
@@ -63,4 +63,4 @@ export function Sugesstions() {
   )
 }
 
-export default Sugesstions
+export default Suggestions
