@@ -1,32 +1,39 @@
 import React, { useState } from 'react'
 import Sugesstions from './Sugesstions.jsx'
-import PostPreview from './posts/PostPreview.jsx'
+import PostPreview from './PostPreview.jsx'
+import '../assets/images/JudeBellingham.png'
+import {
+  DEMO_PHOTO_URL,
+  DEMO_PHOTO_URL_2,
+  DEMO_PHOTO_URL_3,
+  DEMO_PHOTO_URL_4,
+} from '../services/demo.data.service.js'
 
 export function PostList() {
   const [posts, setPosts] = useState([
     {
       user: 'Jude',
-      postImage: '../src/images/JudeBellingham.png',
+      postImage: DEMO_PHOTO_URL,
       likes: 43,
       timestamp: '2d',
     },
     {
+      user: 'Valverde',
+      postImage: DEMO_PHOTO_URL_2,
+      likes: 108,
+      timestamp: '4h',
+    },
+    {
       user: 'Modrich',
-      postImage: '../images/lukaModrich.png',
+      postImage: DEMO_PHOTO_URL_3,
       likes: 51,
       timestamp: '1w',
     },
     {
       user: 'Kross',
-      postImage: '../src/images/ToniKross.png',
+      postImage: DEMO_PHOTO_URL_4,
       likes: 108,
       timestamp: '4d',
-    },
-    {
-      user: 'Valverde',
-      postImage: '../src/images/ToniKross.png',
-      likes: 108,
-      timestamp: '4h',
     },
   ])
 

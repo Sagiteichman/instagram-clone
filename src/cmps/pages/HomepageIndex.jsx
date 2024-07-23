@@ -1,9 +1,9 @@
 import React from 'react'
-import './index.css'
-import { Sidenav } from './navigation/Sidenav'
-import { PostList } from './timeline/PostList'
+import '../../assets/pages/HomepageIndex.scss'
+import { Sidenav } from '../Sidenav'
+import { PostList } from '../PostList'
 
-export function Index() {
+export function HomepageIndex() {
   return (
     <div className='homepage'>
       <div className='homepage__nav'>

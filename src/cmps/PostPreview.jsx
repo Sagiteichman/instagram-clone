@@ -1,13 +1,13 @@
 import { Avatar } from '@mui/material'
 import React from 'react'
-import './PostPreview.css'
+import '../assets/cmps/PostPreview.scss'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ChatBubbleOutLineIcon from '@mui/icons-material/ChatBubbleOutline'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import { DEMO_PHOTO_URL } from '../../services/feedpost.service'
-
+import { DEMO_PHOTO_URL } from '../services/demo.data.service'
+import '../assets/images/ToniKross.png'
 function PostPreview({ user, postImage, likes, timestamp }) {
   return (
     <div className='post'>
@@ -19,7 +19,7 @@ function PostPreview({ user, postImage, likes, timestamp }) {
         <MoreHorizIcon />
       </div>
       <div className='post__image'>
-        <img src={DEMO_PHOTO_URL} alt='Upload Image' />
+        <img src={postImage} alt='Upload Image' />
       </div>
       <div className='post__footer'>
         <div className='post__footerIcons'>
