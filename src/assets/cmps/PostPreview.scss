@@ -1,6 +1,9 @@
 .post {
   width: 550px;
   margin: 30px 40px 50px 40px;
+  font-size: 14px;
+  padding-bottom: 20px;
+  border-bottom: 0.6px solid rgba(128, 128, 128, 0.3);
 }
 
 .post__header {
@@ -12,25 +15,22 @@
 }
 
 .post__headerAuthor {
+  color: #f5f5f5;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: bolder;
+  gap: 12px;
 }
 
 .post__headerAuthor > span {
-  color: grey;
-  font-size: 15px;
+  color: #a8a8a8;
 }
 
 .post__image > img {
   width: 100%;
   border-radius: 6px;
-  border: 0.6px solid rgba(128, 128, 128, 0.516);
 }
-
-/* .post__footer {
-} */
 
 .post__footerIcons {
   display: flex;
@@ -40,10 +40,24 @@
 }
 
 .postIcon {
-  padding: 7px;
-  font-size: 30px;
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .postIcon:hover {
   cursor: pointer;
+}
+
+.post__iconsMain {
+  display: flex;
+  gap: 16px;
+}
+
+.post__footer {
+  font-weight: bolder;
+}
+
+.post__iconsSave {
+  margin-right: 0px;
 }

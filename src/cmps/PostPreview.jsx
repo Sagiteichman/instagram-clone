@@ -11,7 +11,9 @@ function PostPreview({ user, postImage, likes, timestamp }) {
     <div className='post'>
       <div className='post__header'>
         <div className='post__headerAuthor'>
-          <Avatar>{user.charAt(0).toUpperCase() || 'empty'}</Avatar>
+          <Avatar src={postImage} alt={user}>
+            {!postImage && user.charAt(0).toUpperCase()}
+          </Avatar>
           {user} • <span>{timestamp}</span>
         </div>
         <MoreHorizIcon />
@@ -30,7 +32,7 @@ function PostPreview({ user, postImage, likes, timestamp }) {
             <BookmarkBorderIcon className='postIcon' />
           </div>
         </div>
-        Liked by {likes} people
+        {likes} likes
       </div>
     </div>
   )

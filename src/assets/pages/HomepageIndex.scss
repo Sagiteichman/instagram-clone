@@ -4,9 +4,11 @@
 }
 
 .homepage__nav {
-  flex: 0.2;
+  flex: 0.16;
+  border-right: 0.6px solid rgba(128, 128, 128, 0.3);
+  padding-top: 10px;
 }
 
 .homepage__timeline {
-  flex: 0.8;
+  flex: 0.74;
 }
