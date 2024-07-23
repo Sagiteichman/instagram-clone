@@ -1,6 +1,5 @@
-//html
-@import '/src/App.scss';
-@import '/src/index.scss';
+//base
+@import './setup/_base.scss';
 
 //pages cmps
 @import './pages/HomepageIndex.scss';

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Sidenav } from '../Sidenav'
-import { PostList } from '../PostList'
+import { Sidenav } from '../cmps/Sidenav'
+import { PostList } from '../cmps/PostList'
 
 export function HomepageIndex() {
   return (

@@ -1,4 +1,4 @@
-import { HomepageIndex } from './cmps/pages/HomepageIndex.jsx'
+import { HomepageIndex } from './pages/HomepageIndex.jsx'
 
 import './assets/main.scss'
 
