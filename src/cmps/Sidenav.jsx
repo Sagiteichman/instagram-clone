@@ -9,7 +9,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import MenuIcon from '@mui/icons-material/Menu'
 
-export function Sidenav() {
+export function Sidenav({ toggleModal }) {
   return (
     <div className='sidenav'>
       <img
@@ -48,7 +48,7 @@ export function Sidenav() {
           <span>Notifications</span>
         </button>
 
-        <button className='sidenav__button'>
+        <button className='sidenav__button' onClick={toggleModal}>
           <AddCircleOutlineIcon />
           <span>Create</span>
         </button>
