@@ -12,11 +12,13 @@ export function PostCompose({ modal, toggleModal }) {
       {modal && (
         <div className='modal'>
           <div onClick={toggleModal} className='overlay'></div>
-          <div className='modal-content'>
-            <h2>Hello Modal</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <button className='close-modal' onClick={toggleModal}>
-              CLOSE
+          <div className='modal__content'>
+            <h2>Create new post</h2>
+            <button className='modal__close__button' onClick={toggleModal}>
+              X
+            </button>
+            <button className='modal__upload__button'>
+              select from computer
             </button>
           </div>
         </div>
