@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export function PostCompose({ modal, toggleModal }) {
+  const [selectedImage, setSelectedImage] = useState(null)
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setSelectedImage(reader.result)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   if (modal) {
     document.body.classList.add('active-modal')
   } else {
@@ -17,9 +30,21 @@ export function PostCompose({ modal, toggleModal }) {
             <button className='modal__close__button' onClick={toggleModal}>
               X
             </button>
-            <button className='modal__upload__button'>
-              select from computer
-            </button>
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
+              id='upload-image'
+            />
+            <label className='modal__upload__button' htmlFor='upload-image'>
+              Select from computer
+            </label>
+            {selectedImage && (
+              <div className='modal__image__preview'>
+                <img src={selectedImage} alt='Selected' />
+              </div>
+            )}
           </div>
         </div>
       )}

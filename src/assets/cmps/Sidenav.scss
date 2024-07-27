@@ -1,11 +1,11 @@
 .sidenav {
-  position: fixed;
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  // z-index: 1;
   margin-left: 12px;
-  margin-top: 30px;
+  padding-top: 30px;
 }
 
 .sidenav__logo {
@@ -51,6 +51,7 @@
 }
 
 .sidenav__more {
-  position: fixed;
-  bottom: 3px;
+  display: fixed;
+  // position: sticky;
+  // bottom: 3px;
 }
