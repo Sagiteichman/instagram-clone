@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
 // Icons
 import HomeIcon from '@mui/icons-material/Home'
 import SearchIcon from '@mui/icons-material/Search'
@@ -8,8 +10,17 @@ import ChatIcon from '@mui/icons-material/Chat'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import MenuIcon from '@mui/icons-material/Menu'
+import { Avatar } from '@mui/material'
+
+import { postService } from '../services/posts.service'
 
 export function Sidenav({ toggleModal }) {
+  const navigate = useNavigate()
+
+  const handleNavigate = (path) => {
+    navigate(path)
+  }
+
   return (
     <div className='sidenav'>
       <img
@@ -18,7 +29,7 @@ export function Sidenav({ toggleModal }) {
         alt='insagram logo'
       />
       <div className='sidenav__buttons'>
-        <button className='sidenav__button'>
+        <button className='sidenav__button' onClick={() => handleNavigate('/')}>
           <HomeIcon />
           <span>Home</span>
         </button>
@@ -51,6 +62,18 @@ export function Sidenav({ toggleModal }) {
         <button className='sidenav__button' onClick={toggleModal}>
           <AddCircleOutlineIcon />
           <span>Create</span>
+        </button>
+
+        <button
+          className='sidenav__button'
+          onClick={() => handleNavigate('/profile')}
+        >
+          <Avatar
+          // src={user?.imageUrl || postImage} alt={user?.name || 'Guest'}
+          >
+            {/* {!postImage && user.charAt(0).toUpperCase()} */}
+          </Avatar>
+          <span>Profile</span>
         </button>
       </div>
 
