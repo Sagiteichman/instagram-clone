@@ -11,7 +11,7 @@ export function HomepageIndex() {
   const [user, setUser] = useState(null)
   const [editedPostId, setEditedPostId] = useState(null)
 
-  const currentUserPosts = posts.filter((post) => post.user.id === user.id)
+  // const currentUserPosts = posts.filter((post) => post.user.id === user.id)
 
   const fetchPosts = async () => {
     const posts = await postService.getPosts()

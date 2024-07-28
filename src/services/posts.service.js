@@ -68,6 +68,7 @@ async function addPost(post) {
     body: JSON.stringify(post),
   })
   const newPost = await response.json()
+  console.log(newPost, 'from front')
   return newPost
 }
 
