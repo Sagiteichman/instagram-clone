@@ -1,4 +1,5 @@
 // posts.service.js
+import { API_BASE_URL } from '../constants.js'
 import { storageService } from './storage.service.js'
 
 const POST_KEY = 'postDB'
@@ -44,12 +45,47 @@ function _createPosts() {
   }
 }
 
-function getPosts() {
-  return storageService.loadFromStorage(POST_KEY) || []
+async function getPosts() {
+  const response = await fetch(`${API_BASE_URL}/posts`)
+  const posts = await response.json()
+  return posts
+}
+
+async function deletePost(postId) {
+  const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
+    method: 'DELETE',
+  })
+  const deletedPost = await response.json()
+  return deletedPost
+}
+
+async function addPost(post) {
+  const response = await fetch(`${API_BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(post),
+  })
+  const newPost = await response.json()
+  return newPost
+}
+
+async function editPost(postId, postUpdates) {
+  const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(postUpdates),
+  })
+  const editedPost = await response.json()
+  return editedPost
 }
 
 _createPosts()
 
 export const postService = {
   getPosts,
+  deletePost,
+  addPost,
+  editPost,
 }

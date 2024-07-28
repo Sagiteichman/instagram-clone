@@ -16,8 +16,7 @@
 .modal__content {
   position: absolute;
   display: flex;
-  flex-direction: column;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
@@ -31,6 +30,19 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 100%;
+    border-radius: 6px;
+  }
+
+  &_upload {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
 
   h2 {
     font-size: 16px;

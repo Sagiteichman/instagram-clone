@@ -1,36 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import Suggestions from './Suggestions.jsx'
-import PostPreview from './PostPreview.jsx'
-import { postService } from '../services/posts.service.js'
+import React from "react";
+import Suggestions from "./Suggestions.jsx";
+import PostPreview from "./PostPreview.jsx";
 
-export function PostList() {
-  const [posts, setPosts] = useState([])
-
-  useEffect(() => {
-    const posts = postService.getPosts()
-    setPosts(posts)
-  }, [])
-
-  if (!posts.length) return <div>Loading Posts...</div>
+export function PostList({ posts, fetchPosts, setEditedPostId }) {
+  if (!posts.length) return <div>Loading Posts...</div>;
 
   return (
-    <div className='timeline'>
-      <div className='timeline__left'>
-        <div className='timeline__post'>
+    <div className="timeline">
+      <div className="timeline__left">
+        <div className="timeline__post">
           {posts.map((post) => (
             <PostPreview
+              setEditedPostId={setEditedPostId}
               key={post.id}
-              user={post.user}
-              postImage={post.postImage}
-              likes={post.likes}
-              timestamp={post.timestamp}
+              fetchPosts={fetchPosts}
+              {...post}
             />
           ))}
         </div>
       </div>
-      <div className='timeline__right'>
+      <div className="timeline__right">
         <Suggestions />
       </div>
     </div>
-  )
+  );
 }
