@@ -1,14 +1,14 @@
-import React from "react";
-import Suggestions from "./Suggestions.jsx";
-import PostPreview from "./PostPreview.jsx";
+import React from 'react'
+import Suggestions from './Suggestions.jsx'
+import PostPreview from './PostPreview.jsx'
 
 export function PostList({ posts, fetchPosts, setEditedPostId }) {
-  if (!posts.length) return <div>Loading Posts...</div>;
+  if (!posts.length) return <div>Loading Posts...</div>
 
   return (
-    <div className="timeline">
-      <div className="timeline__left">
-        <div className="timeline__post">
+    <div className='timeline'>
+      <div className='timeline__left'>
+        <div className='timeline__post'>
           {posts.map((post) => (
             <PostPreview
               setEditedPostId={setEditedPostId}
@@ -19,9 +19,9 @@ export function PostList({ posts, fetchPosts, setEditedPostId }) {
           ))}
         </div>
       </div>
-      <div className="timeline__right">
+      <div className='timeline__right'>
         <Suggestions />
       </div>
     </div>
-  );
+  )
 }

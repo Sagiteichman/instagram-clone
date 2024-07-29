@@ -1,0 +1,26 @@
+.postDetails {
+  display: flex;
+
+  &.modal__content {
+    max-width: unset;
+    width: fit-content;
+    padding: unset;
+    width: 70vw;
+  }
+
+  .img {
+    flex: 0.65;
+
+    > img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  > .postDetails__comments {
+    flex: 0.35;
+    display: flex;
+    flex-direction: column;
+  }
+}

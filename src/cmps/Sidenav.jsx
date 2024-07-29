@@ -1,88 +1,89 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // Icons
-import HomeIcon from '@mui/icons-material/Home'
-import SearchIcon from '@mui/icons-material/Search'
-import ExploreIcon from '@mui/icons-material/Explore'
-import SlideshowIcon from '@mui/icons-material/Slideshow'
-import ChatIcon from '@mui/icons-material/Chat'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import MenuIcon from '@mui/icons-material/Menu'
-import { Avatar } from '@mui/material'
+import HomeIcon from "../assets/svg/HomeFocus.jsx";
+import SearchIcon from "../assets/svg/Search.jsx";
+import ExploreIcon from "../assets/svg/Explore.jsx";
+import ReelsIcon from "../assets/svg/Reels.jsx";
+import ChatIcon from "../assets/svg/Messenger.jsx";
+import LikeIcon from "../assets/svg/Like.jsx";
+import CreateIcon from "../assets/svg/Create.jsx";
+import MoreIcon from "../assets/svg/Hamburger.jsx";
+import { Avatar } from "@mui/material";
 
-import { postService } from '../services/posts.service'
-
-export function Sidenav({ toggleModal }) {
-  const navigate = useNavigate()
+function Sidenav({ toggleModal, user }) {
+  const navigate = useNavigate();
 
   const handleNavigate = (path) => {
-    navigate(path)
-  }
+    navigate(path);
+  };
 
   return (
-    <div className='sidenav'>
+    <div className="sidenav">
       <img
-        className='sidenav__logo'
-        src='https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distraction.png'
-        alt='insagram logo'
+        className="sidenav__logo"
+        src="https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distraction.png"
+        alt="insagram logo"
       />
-      <div className='sidenav__buttons'>
-        <button className='sidenav__button' onClick={() => handleNavigate('/')}>
-          <HomeIcon />
+      <div className="sidenav__buttons">
+        <button className="sidenav__button" onClick={() => handleNavigate("/")}>
+          <HomeIcon fill="white" />
           <span>Home</span>
         </button>
 
-        <button className='sidenav__button'>
+        <button className="sidenav__button">
           <SearchIcon />
           <span>Search</span>
         </button>
 
-        <button className='sidenav__button'>
+        <button className="sidenav__button">
           <ExploreIcon />
           <span>Explore</span>
         </button>
 
-        <button className='sidenav__button'>
-          <SlideshowIcon />
+        <button className="sidenav__button">
+          <ReelsIcon />
           <span>Reels</span>
         </button>
 
-        <button className='sidenav__button'>
+        <button className="sidenav__button">
           <ChatIcon />
           <span>Messages</span>
         </button>
 
-        <button className='sidenav__button'>
-          <FavoriteBorderIcon />
+        <button className="sidenav__button">
+          <LikeIcon />
           <span>Notifications</span>
         </button>
 
-        <button className='sidenav__button' onClick={toggleModal}>
-          <AddCircleOutlineIcon />
+        <button className="sidenav__button" onClick={toggleModal}>
+          <CreateIcon />
           <span>Create</span>
         </button>
 
         <button
-          className='sidenav__button'
-          onClick={() => handleNavigate('/profile')}
+          className="sidenav__button"
+          onClick={() => handleNavigate("/profile")}
         >
-          <Avatar
-          // src={user?.imageUrl || postImage} alt={user?.name || 'Guest'}
-          >
-            {/* {!postImage && user.charAt(0).toUpperCase()} */}
-          </Avatar>
+          {user && (
+            <Avatar src={user.imageUrl} alt={user.name || "Guest"}>
+              {/* {!postImage && user.charAt(0).toUpperCase()} */}
+            </Avatar>
+          )}
           <span>Profile</span>
         </button>
       </div>
 
-      <div className='sidenav__more'>
-        <button className='sidenav__button'>
-          <MenuIcon />
+      <div className="sidenav_spacer"></div>
+      <div className="sidenav__more">
+        <button className="sidenav__button">
+          <MoreIcon />
           <span>More</span>
         </button>
       </div>
     </div>
-  )
+  );
 }
+
+export default Sidenav;

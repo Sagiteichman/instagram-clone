@@ -1,54 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import { Sidenav } from '../cmps/Sidenav'
-import { PostCompose } from '../cmps/PostCompose.jsx'
-import { postService } from '../services/posts.service.js'
-import { userService } from '../services/users.service.js'
+import React, { useEffect, useState } from "react";
+import Sidenav from "../cmps/Sidenav";
+import { PostCompose } from "../cmps/PostCompose.jsx";
+import { postService } from "../services/posts.service.js";
+import { userService } from "../services/users.service.js";
 
 export function ProfilePage() {
-  const [isComposeModalOpen, setComposeModalOpen] = useState(false)
-  const [posts, setPosts] = useState([])
-  const [user, setUser] = useState(null)
-  const [editedPostId, setEditedPostId] = useState(null)
+  const [isComposeModalOpen, setComposeModalOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState(null);
+  const [editedPostId, setEditedPostId] = useState(null);
 
   // const currentUserPosts = posts.filter((post) => post.user.id === user.id)
 
   const fetchPosts = async () => {
-    const posts = await postService.getPosts()
-    setPosts(posts)
-  }
+    const posts = await postService.getPosts();
+    setPosts(posts);
+  };
 
   const fetchUser = async () => {
-    const user = await userService.getUserById('1')
-    setUser(user)
-  }
+    const user = await userService.getUserById("1");
+    setUser(user);
+  };
+  const fetchUsers = async () => {
+    const users = await userService.getUsers();
+    console.log(users);
+  };
 
   useEffect(() => {
-    fetchPosts()
-    fetchUser()
-  }, [])
+    fetchPosts();
+    fetchUser();
+    fetchUsers();
+  }, []);
 
-  const editedPost = posts.find((post) => post.id === editedPostId)
-  const shouldShowComposeModal = editedPost || isComposeModalOpen
+  const editedPost = posts.find((post) => post.id === editedPostId);
+  const shouldShowComposeModal = editedPost || isComposeModalOpen;
 
   const toggleModal = () => {
-    setComposeModalOpen(!shouldShowComposeModal)
-    setEditedPostId(null)
-  }
+    setComposeModalOpen(!shouldShowComposeModal);
+    setEditedPostId(null);
+  };
 
   return (
-    <div className='profilepage'>
-      <div className='homepage__nav'>
-        <Sidenav toggleModal={toggleModal} />
-      </div>
+    <div className="profilepage">
       <PostCompose
         user={user}
-        modal={shouldShowComposeModal}
+        shouldShowComposeModal={shouldShowComposeModal}
         toggleModal={toggleModal}
         fetchPosts={fetchPosts}
         post={editedPost}
       />
     </div>
-  )
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;
