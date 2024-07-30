@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { PostList } from "../cmps/PostList";
-import { PostCompose } from "../cmps/PostCompose.jsx";
-import { postService } from "../services/posts.service.js";
-import { userService } from "../services/users.service.js";
+import React from 'react'
+import { PostList } from '../cmps/PostList'
 
 export function HomepageIndex({ posts, fetchPosts, user, setEditedPostId }) {
   return (
-    <div className="homepage">
-      <div className="homepage__timeline">
+    <div className='homepage'>
+      <div className='homepage__timeline'>
         <PostList
           posts={posts}
           fetchPosts={fetchPosts}
@@ -16,5 +13,5 @@ export function HomepageIndex({ posts, fetchPosts, user, setEditedPostId }) {
         />
       </div>
     </div>
-  );
+  )
 }
