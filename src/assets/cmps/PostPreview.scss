@@ -38,8 +38,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  // padding-bottom: 10px;
 }
 
 .postIcon {
@@ -58,7 +57,7 @@
 }
 
 .post__footer {
-  font-weight: bolder;
+  font-weight: 650;
 }
 
 .post__iconsSave {
@@ -67,4 +66,21 @@
 
 .post__description {
   font-weight: 400;
+}
+
+.post__comment {
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.footer__username {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.foother__description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
