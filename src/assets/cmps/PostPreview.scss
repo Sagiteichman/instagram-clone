@@ -46,10 +46,10 @@
   font-size: 14px;
   margin-top: 8px;
   margin-bottom: 8px;
-}
 
-.postIcon:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .post__iconsMain {

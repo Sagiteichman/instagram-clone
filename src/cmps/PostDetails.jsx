@@ -1,55 +1,49 @@
-import { useSearchParams } from 'react-router-dom'
-import { Author } from './Author'
+import { useSearchParams } from "react-router-dom";
+import { Author } from "./Author";
+import { Comment } from "./Comment";
+import { AddComment } from "./AddComment";
 
-export const PostDetails = ({ selectedPost }) => {
-  const [params, setParams] = useSearchParams()
+export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
+  const [params, setParams] = useSearchParams();
 
   const closeModal = () => {
-    params.delete('postId')
-    setParams(params)
-  }
+    params.delete("postId");
+    setParams(params);
+  };
 
-  const exampleComments = new Array(7).fill(undefined)
-  if (!selectedPost) return
+  if (!selectedPost) return;
   return (
     <>
       {selectedPost && (
-        <div className='modal'>
-          <div onClick={closeModal} className='overlay'></div>
-          <div className='postDetails modal__content'>
-            <div className='img'>
-              <img src={selectedPost.postImage} alt='Selected' />
+        <div className="modal">
+          <div onClick={closeModal} className="overlay"></div>
+          <div className="postDetails modal__content">
+            <div className="img">
+              <img src={selectedPost.postImage} alt="Selected" />
             </div>
-            <div className='postDetails__comments'>
+            <div className="postDetails__comments">
               <Author
-                name={selectedPost?.user?.name || 'guest'}
+                name={selectedPost?.user?.name || "guest"}
                 imageUrl={selectedPost?.user?.imageUrl}
                 timestamp={selectedPost?.timestamp}
               />
 
-              {selectedPost?.comments?.map((_, i) => (
-                <div key={i} className='comment'>
-                  <div className='comment_name_and_text'>
-                    <Author
-                      name={_.userName}
-                      imageUrl={_.userImgUrl}
-                      timestamp={_.timestamp}
-                    />
-                    <span>{_.text}</span>
-                  </div>
-                  <div>
-                    <span>{_.timestamp}</span>
-                    <span>{_.likes > 0 && _.likes + 'likes'}</span>
-                    <span>Reply</span>
-                    <span>See translation</span>
-                    <span>...</span>
-                  </div>
+              {selectedPost?.comments?.map((comment, i) => (
+                <div className="comment_wrapper">
+                  <Comment key={i} comment={comment} />
                 </div>
               ))}
+              <AddComment
+                commenterId={currentUser.id}
+                comments={selectedPost.comments}
+                postId={selectedPost.id}
+                fetchPosts={fetchPosts}
+                showPostButton={true}
+              />
             </div>
           </div>
         </div>
       )}
     </>
-  )
-}
+  );
+};
