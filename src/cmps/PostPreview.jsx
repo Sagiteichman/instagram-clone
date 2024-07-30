@@ -45,6 +45,7 @@ function PostPreview({
     setEditedPostId(id)
     setIsMenuOpen(false)
   }
+
   return (
     <div className='post'>
       <div className='post__header'>

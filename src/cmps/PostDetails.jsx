@@ -10,6 +10,7 @@ export const PostDetails = ({ selectedPost }) => {
   }
 
   const exampleComments = new Array(7).fill(undefined)
+  if (!selectedPost) return
   return (
     <>
       {selectedPost && (
@@ -21,12 +22,12 @@ export const PostDetails = ({ selectedPost }) => {
             </div>
             <div className='postDetails__comments'>
               <Author
-                name={selectedPost.user.name}
-                imageUrl={selectedPost.user?.imageUrl}
-                timestamp={selectedPost.timestamp}
+                name={selectedPost?.user?.name || 'guest'}
+                imageUrl={selectedPost?.user?.imageUrl}
+                timestamp={selectedPost?.timestamp}
               />
 
-              {selectedPost.comments.map((_, i) => (
+              {selectedPost?.comments?.map((_, i) => (
                 <div key={i} className='comment'>
                   <div className='comment_name_and_text'>
                     <Author

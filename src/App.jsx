@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useSearchParams } from 'react-router-dom'
 import { HomepageIndex } from './pages/HomepageIndex.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import './assets/main.scss'
@@ -52,7 +46,17 @@ function App() {
     <>
       <Sidenav toggleModal={toggleComposeModal} user={user} />
       <Routes>
-        <Route path='/' element={<HomepageIndex user={user} posts={posts} />} />
+        <Route
+          path='/'
+          element={
+            <HomepageIndex
+              user={user}
+              posts={posts}
+              fetchPosts={fetchPosts}
+              setEditedPostId={setEditedPostId}
+            />
+          }
+        />
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
       {shouldShowComposeModal && (

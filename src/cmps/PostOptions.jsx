@@ -1,40 +1,22 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "black",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
 
 export function PostMenu({ isOpen, setIsOpen, onDeleteClick, onEditClick }) {
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => setIsOpen(false)
 
   return (
-    <Modal
-      open={isOpen}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Button id="modal-modal-description" sx={{ mt: 2 }}>
-          Delete
-        </Button> */}
-
-        <div onClick={onDeleteClick}>delete</div>
-        <div onClick={onEditClick}>Edit</div>
-      </Box>
+    <Modal open={isOpen} onClose={handleClose}>
+      <div className='post__options'>
+        <div className='post__buttons'>
+          <button className='post__options__button' onClick={onDeleteClick}>
+            delete
+          </button>
+          <button className='post__options__button' onClick={onEditClick}>
+            Edit
+          </button>
+        </div>
+      </div>
     </Modal>
-  );
+  )
 }
