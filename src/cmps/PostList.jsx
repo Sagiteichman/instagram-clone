@@ -2,7 +2,7 @@ import React from 'react'
 import Suggestions from './Suggestions.jsx'
 import PostPreview from './PostPreview.jsx'
 
-export function PostList({ posts, fetchPosts, user, setEditedPostId }) {
+export function PostList({ posts, fetchPosts, setEditedPostId }) {
   if (!posts.length) return <div>Loading Posts...</div>
 
   return (

@@ -12,9 +12,12 @@
 }
 
 .sidenav__logo {
+  font-family: $logoFont;
+  cursor: pointer;
+  font-weight: 200;
   width: 120px;
   margin-left: 12px;
-  margin-bottom: 34px;
+  margin-bottom: 45px;
   margin-top: 10px;
   width: 103px;
   height: 29px;

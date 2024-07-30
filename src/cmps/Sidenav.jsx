@@ -21,11 +21,12 @@ function Sidenav({ toggleModal, user }) {
 
   return (
     <div className='sidenav'>
-      <img
+      {/* <img
         className='sidenav__logo'
         src='https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distraction.png'
         alt='insagram logo'
-      />
+      /> */}
+      <h1 className='sidenav__logo'>Bellingram</h1>
       <div className='sidenav__buttons'>
         <button className='sidenav__button' onClick={() => handleNavigate('/')}>
           <HomeIcon fill='white' />
