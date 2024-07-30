@@ -80,7 +80,8 @@ function PostPreview({
         {likes} likes
         <br />
         <br />
-        {user?.name || 'Guest'} {text}
+        {user?.name || 'Guest'}{' '}
+        <span className='post__description'>{text}</span>
       </div>
     </div>
   )
