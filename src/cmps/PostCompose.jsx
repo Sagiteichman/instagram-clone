@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { postService } from '../services/posts.service'
+import Avatar from '@mui/material/Avatar'
 
 export function PostCompose({
   shouldShowComposeModal,
@@ -66,38 +67,40 @@ export function PostCompose({
     <div className='modal'>
       <div onClick={toggleModal} className='overlay'></div>
       <div className='modal__content'>
-        <div className='modal__content_upload'>
-          <h2>{isEdit ? 'Edit post' : 'Create new post'}</h2>
-          <button className='modal__close__button' onClick={toggleModal}>
-            X
+        <div className='modal__header'>
+          <button className='modal__header__button' onClick={toggleModal}>
+            Cancel
           </button>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
-            id='upload-image'
-          />
-          <label className='modal__upload__button' htmlFor='upload-image'>
-            Select from computer
-          </label>
-          <label className='modal__upload__button' onClick={handleStepClick}>
-            {step === 1 ? 'Share' : 'Next'}
-          </label>
-          {selectedImage && (
-            <div className='modal__image__preview'>
-              <img src={selectedImage} alt='Selected' />
-            </div>
-          )}
+          <h2>Edit Info</h2>
+          <button
+            className='modal__header__button done__button'
+            onClick={handleStepClick}
+          >
+            Done
+          </button>
         </div>
-        {step === 1 && (
-          <div>
-            <input
+        <div className='modal__body'>
+          <div className='modal__image'>
+            {selectedImage && <img src={selectedImage} alt='Selected' />}
+          </div>
+          <div className='modal__info'>
+            <div className='modal__info__header'>
+              <Avatar
+                className='modal__avatar'
+                src={user.imageUrl}
+                alt={user.name}
+              />
+              <div className='modal__user__info'>
+                <h3>{user.name}</h3>
+              </div>
+            </div>
+            <textarea
               value={postText}
               onChange={(e) => setPostText(e.target.value)}
+              placeholder='Write a caption...'
             />
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
