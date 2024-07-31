@@ -100,20 +100,26 @@ function PostPreview({
             {likes.length > 0 &&
               `${likes.length} like${likes.length > 1 ? 's' : ''}`}
           </span>
-          <span className='footer__username'>{user?.name || 'Guest'}</span>
-        </div>
-        {comments?.slice(0, 3)?.map((comment) => {
-          return (
-            <div className='footer__comments'>
-              {comment.user.name}:
-              <span className='post__comment'>{comment.text}</span>
+          <div>
+            <span className='footer__username'>{user?.name || 'Guest'}</span>
+            <span className='post__description'>{text}</span>
+          </div>
+          {comments?.slice(0, 2)?.map((comment) => {
+            return (
+              <div className='footer__comments'>
+                {comment.user.name}:
+                <span className='post__comment'>{comment.text}</span>
+              </div>
+            )
+          })}
+          {comments?.length && (
+            <div onClick={openDetails}>
+              <span className='footer__viewcomments'>
+                View all {comments?.length} comments
+              </span>
             </div>
-          )
-        })}
-        {comments?.length && (
-          <div onClick={openDetails}>View all {comments?.length} comments</div>
-        )}
-        <span className='post__description'>{text}</span>
+          )}
+        </div>
       </div>
       <div>
         <AddComment

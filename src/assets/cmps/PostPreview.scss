@@ -66,6 +66,7 @@
 
 .post__description {
   font-weight: 400;
+  margin-left: 5px;
 }
 
 .post__comment {
@@ -73,14 +74,18 @@
   font-weight: 400;
 }
 
-.footer__username {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 10px;
-}
+// .footer__username {
+//   margin: 0;
+//   padding: 0;
+// }
 
 .foother__description {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.footer__viewcomments {
+  font-weight: 300;
+  color: #a8a8a8;
 }
