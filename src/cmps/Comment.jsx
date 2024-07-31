@@ -16,7 +16,6 @@ export const Comment = ({ comment }) => {
           <span>Reply </span>
         </div>
       </div>
-      <div>like</div>
     </div>
   )
 }

@@ -53,13 +53,15 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                   </div>
                 ))}
               </div>
-              <AddComment
-                commenterId={currentUser.id}
-                comments={selectedPost.comments}
-                postId={selectedPost.id}
-                fetchPosts={fetchPosts}
-                showPostButton={true}
-              />
+              <div className='addCommentWrapper'>
+                <AddComment
+                  commenterId={currentUser.id}
+                  comments={selectedPost.comments}
+                  postId={selectedPost.id}
+                  fetchPosts={fetchPosts}
+                  showPostButton={true}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -52,6 +52,10 @@
   padding: 16px;
   padding-bottom: 10px;
   border-bottom: 0.6px solid rgba(128, 128, 128, 0.3);
+  background: black;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   .avatar {
     width: 40px;
@@ -90,4 +94,13 @@
 .commentWrapper {
   display: flex;
   align-items: flex-start;
+}
+
+.addCommentWrapper {
+  position: sticky;
+  bottom: 0;
+  background: black;
+  padding: 16px;
+  border-top: 0.6px solid rgba(128, 128, 128, 0.3);
+  z-index: 1;
 }
