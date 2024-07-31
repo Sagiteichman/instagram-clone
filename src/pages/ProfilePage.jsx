@@ -1,56 +1,52 @@
-import React, { useEffect, useState } from "react";
-import Sidenav from "../cmps/Sidenav";
-import { PostCompose } from "../cmps/PostCompose.jsx";
-import { postService } from "../services/posts.service.js";
-import { userService } from "../services/users.service.js";
+import React, { useEffect, useState } from 'react'
+import { postService } from '../services/posts.service.js'
+import { userService } from '../services/users.service.js'
 
 export function ProfilePage() {
-  const [isComposeModalOpen, setComposeModalOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState(null);
-  const [editedPostId, setEditedPostId] = useState(null);
-
-  // const currentUserPosts = posts.filter((post) => post.user.id === user.id)
-
-  const fetchPosts = async () => {
-    const posts = await postService.getPosts();
-    setPosts(posts);
-  };
-
-  const fetchUser = async () => {
-    const user = await userService.getUserById("1");
-    setUser(user);
-  };
-  const fetchUsers = async () => {
-    const users = await userService.getUsers();
-    console.log(users);
-  };
+  const [user, setUser] = useState(null)
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    fetchPosts();
-    fetchUser();
-    fetchUsers();
-  }, []);
+    fetchUser()
+    fetchPosts()
+  }, [])
 
-  const editedPost = posts.find((post) => post.id === editedPostId);
-  const shouldShowComposeModal = editedPost || isComposeModalOpen;
+  const fetchUser = async () => {
+    const user = await userService.getUserById('1') // Needs to be replaced with dynamic user ID
+    setUser(user)
+  }
 
-  const toggleModal = () => {
-    setComposeModalOpen(!shouldShowComposeModal);
-    setEditedPostId(null);
-  };
+  const fetchPosts = async () => {
+    const posts = await postService.getPosts()
+    const userPosts = posts.filter((post) => post.user.id === '1') // Needs to be replaced with dynamic user ID
+    setPosts(userPosts)
+  }
+
+  if (!user) return <div>Loading...</div>
 
   return (
-    <div className="profilepage">
-      <PostCompose
-        user={user}
-        shouldShowComposeModal={shouldShowComposeModal}
-        toggleModal={toggleModal}
-        fetchPosts={fetchPosts}
-        post={editedPost}
-      />
+    <div className='profile-page'>
+      <div className='profile-content'>
+        <div className='profile-header'>
+          <img src={user.imageUrl} alt={user.name} className='profile-avatar' />
+          <div className='profile-info'>
+            <h2>{user.name}</h2>
+            <div className='profile-stats'>
+              <span>{posts.length} posts</span>
+              {/* Add followers and following count */}
+            </div>
+          </div>
+        </div>
+        <div className='profile-posts'>
+          {posts.map((post) => (
+            <div key={post.id} className='profile-post'>
+              <img src={post.postImage} alt='Post' />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default ProfilePage;
+export default ProfilePage

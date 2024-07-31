@@ -1,16 +1,17 @@
 //base
-@import "./setup/_base.scss";
+@import './setup/_base.scss';
 
 //pages cmps
-@import "./pages/HomepageIndex.scss";
+@import './pages/HomepageIndex.scss';
+@import './pages/ProfilePage.scss';
 
 //cmps
-@import "./cmps/PostList.scss";
-@import "./cmps/PostPreview.scss";
-@import "./cmps/AddComment.scss";
-@import "./cmps/Comment.scss";
-@import "./cmps/PostDetails.scss";
-@import "./cmps/Sidenav.scss";
-@import "./cmps/Suggestions.scss";
-@import "./cmps/PostCompose.scss";
-@import "./cmps/PostOptions.scss";
+@import './cmps/PostList.scss';
+@import './cmps/PostPreview.scss';
+@import './cmps/AddComment.scss';
+@import './cmps/Comment.scss';
+@import './cmps/PostDetails.scss';
+@import './cmps/Sidenav.scss';
+@import './cmps/Suggestions.scss';
+@import './cmps/PostCompose.scss';
+@import './cmps/PostOptions.scss';
