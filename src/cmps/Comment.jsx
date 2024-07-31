@@ -12,8 +12,8 @@ export const Comment = ({ comment }) => {
         </div>
         <span>{comment.likes > 0 && comment.likes + 'likes'}</span>
         <div>
-          <span>{timeSince(comment.timestamp)} </span>
-          <span>Reply </span>
+          <span className='comment__text'>{timeSince(comment.timestamp)} </span>
+          <span className='comment__text'>Reply</span>
         </div>
       </div>
     </div>
