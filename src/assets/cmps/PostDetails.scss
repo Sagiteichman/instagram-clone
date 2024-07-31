@@ -1,27 +1,93 @@
-.postDetails {
+.postDetailsModal,
+.postDetailsOverlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.postDetailsOverlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.postDetailsContent {
+  position: absolute;
   display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: black;
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 70vw;
+  height: 80vh;
+}
 
-  &.modal__content {
-    max-width: unset;
-    width: fit-content;
-    padding: unset;
-    width: 70vw;
+.postDetailsImage {
+  flex: 0.65;
+  border-right: 0.6px solid rgba(128, 128, 128, 0.3);
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.postDetailsComments {
+  flex: 0.35;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.postDetailsHeader {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  padding-bottom: 10px;
+  border-bottom: 0.6px solid rgba(128, 128, 128, 0.3);
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
   }
 
-  .img {
-    flex: 0.65;
-
-    > img {
-      object-fit: contain;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  > .postDetails__comments {
-    flex: 0.35;
+  .userInfo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
+    .username {
+      font-weight: bold;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #8e8e8e;
+    }
   }
+}
+
+.postDescription {
+  padding: 16px;
+}
+
+.commentsSection {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commentWrapper {
+  display: flex;
+  align-items: flex-start;
 }

@@ -1,5 +1,5 @@
-import React from "react";
-import { PostList } from "../cmps/PostList";
+import React from 'react'
+import { PostList } from '../cmps/PostList'
 
 export function HomepageIndex({
   currentUser,
@@ -8,9 +8,10 @@ export function HomepageIndex({
   user,
   setEditedPostId,
 }) {
+  if (!posts || !posts.length) return <div>loading posts...</div>
   return (
-    <div className="homepage">
-      <div className="homepage__timeline">
+    <div className='homepage'>
+      <div className='homepage__timeline'>
         <PostList
           posts={posts}
           fetchPosts={fetchPosts}
@@ -20,5 +21,5 @@ export function HomepageIndex({
         />
       </div>
     </div>
-  );
+  )
 }

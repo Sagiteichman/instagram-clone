@@ -1,17 +1,16 @@
-import { Avatar } from "@mui/material";
-import { timeSince } from "../services/timeSince";
+import { Avatar } from '@mui/material'
+import { timeSince } from '../services/timeSince'
 
 export const Comment = ({ comment }) => {
-  console.log("comment", comment);
   return (
-    <div className="comment">
+    <div className='comment'>
       <Avatar src={comment.user?.imageUrl} alt={comment.user?.name} />
-      <div className="comment_name_and_text">
+      <div className='comment_name_and_text'>
         <div>
           <span>{comment.user?.name}</span>
           <span>{comment.text}</span>
         </div>
-        <span>{comment.likes > 0 && comment.likes + "likes"}</span>
+        <span>{comment.likes > 0 && comment.likes + 'likes'}</span>
         <div>
           <span>{timeSince(comment.timestamp)} </span>
           <span>Reply </span>
@@ -19,5 +18,5 @@ export const Comment = ({ comment }) => {
       </div>
       <div>like</div>
     </div>
-  );
-};
+  )
+}

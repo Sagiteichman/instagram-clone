@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import LikeIcon from '../assets/svg/Like.jsx'
 import { LikeFilled } from '../assets/svg/LikeFilled.jsx'
@@ -26,6 +26,10 @@ function PostPreview({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [params, setParams] = useSearchParams()
 
+  useEffect(() => {
+    console.log(id)
+  })
+
   const openDetails = () => {
     params.append('postId', id)
     setParams(params)
@@ -47,8 +51,8 @@ function PostPreview({
     setEditedPostId(id)
     setIsMenuOpen(false)
   }
-
-  const isLiked = likes.includes(currentUser?.id)
+  const isLiked = likes.includes(user.id)
+  // const isLiked = true
 
   const onLikeClick = async () => {
     await postService.editPost(id, {
@@ -59,6 +63,7 @@ function PostPreview({
     await fetchPosts()
   }
 
+  if (!id) return <div>loading...</div>
   return (
     <div className='post'>
       <div className='post__header'>
