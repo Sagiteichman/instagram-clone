@@ -6,9 +6,9 @@ export const Comment = ({ comment }) => {
     <div className='comment'>
       <Avatar src={comment.user?.imageUrl} alt={comment.user?.name} />
       <div className='comment_name_and_text'>
-        <div>
-          <span>{comment.user?.name}</span>
-          <span>{comment.text}</span>
+        <div className='comment__textarea'>
+          <span className='comment__username'>{comment.user?.name}</span>
+          <span className='comment__comment'>{comment.text}</span>
         </div>
         <span>{comment.likes > 0 && comment.likes + 'likes'}</span>
         <div>

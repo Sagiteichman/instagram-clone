@@ -1,11 +1,12 @@
-import { Avatar } from "@mui/material";
-import { timeSince } from "../services/timeSince";
+import { Avatar } from '@mui/material'
+import { timeSince } from '../services/timeSince'
 
-export const Author = ({ imageUrl, name = "Guest", timestamp }) => {
+export const Author = ({ imageUrl, name = 'Guest', timestamp }) => {
   return (
-    <div className="post__headerAuthor">
+    <div className='post__headerAuthor'>
       <Avatar src={imageUrl} alt={name} />
-      {name} {timestamp ? "• " + timeSince(timestamp) : ""}
+      {name}
+      <span>{timestamp ? '• ' + timeSince(timestamp) : ''}</span>
     </div>
-  );
-};
+  )
+}

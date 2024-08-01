@@ -3,6 +3,13 @@ import { Author } from './Author'
 import { Comment } from './Comment'
 import { AddComment } from './AddComment'
 
+// icons
+import LikeIcon from '../assets/svg/Like.jsx'
+import CommentIcon from '../assets/svg/Comment.jsx'
+import ShareIcon from '../assets/svg/Share.jsx'
+import SaveIcon from '../assets/svg/Save.jsx'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+
 export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
   const [params, setParams] = useSearchParams()
 
@@ -37,14 +44,6 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                     {new Date(selectedPost?.timestamp).toLocaleString()}
                   </span>
                 </div>
-              </div>
-              <div className='postDescription'>
-                <Comment
-                  comment={{
-                    text: selectedPost?.description,
-                    user: selectedPost?.user,
-                  }}
-                />
               </div>
               <div className='commentsSection'>
                 {selectedPost?.comments?.map((comment, i) => (
