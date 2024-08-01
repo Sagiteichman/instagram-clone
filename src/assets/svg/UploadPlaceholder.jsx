@@ -27,3 +27,5 @@ const UploadPlaceHolder = (props) => {
     </svg>
   )
 }
+
+export default UploadPlaceHolder
