@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom'
 import { Author } from './Author'
 import { Comment } from './Comment'
 import { AddComment } from './AddComment'
+import { timeSince } from '../services/timeSince'
 
 // icons
 import LikeIcon from '../assets/svg/Like.jsx'
@@ -36,14 +37,10 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                   src={selectedPost?.user?.imageUrl}
                   alt={selectedPost?.user?.name}
                 />
-                <div className='userInfo'>
-                  <span className='username'>
-                    {selectedPost?.user?.name || 'guest'}
-                  </span>
-                  <span className='timestamp'>
-                    {new Date(selectedPost?.timestamp).toLocaleString()}
-                  </span>
-                </div>
+                <span className='username'>
+                  {selectedPost?.user?.name || 'guest'}
+                </span>
+                <MoreHorizIcon className='moreIcon' />
               </div>
               <div className='commentsSection'>
                 {selectedPost?.comments?.map((comment, i) => (
@@ -53,6 +50,24 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                 ))}
               </div>
               <div className='addCommentWrapper'>
+                <div className='postActions'>
+                  <div className='iconsRow'>
+                    <div className='leftIcons'>
+                      <LikeIcon className='postIcon' />
+                      <CommentIcon className='postIcon' />
+                      <ShareIcon className='postIcon' />
+                    </div>
+                    <SaveIcon className='postIcon saveIcon' />
+                  </div>
+                  <div className='likes'>
+                    <span className='bold'>
+                      {selectedPost?.likes.length} Likes
+                    </span>
+                  </div>
+                  <div className='timestamp'>
+                    {timeSince(selectedPost?.timestamp).toLocaleString()}
+                  </div>
+                </div>
                 <AddComment
                   commenterId={currentUser.id}
                   comments={selectedPost.comments}
