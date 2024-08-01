@@ -8,9 +8,10 @@ export function PostCompose({
   toggleModal,
   user,
   post,
+  mode, // Add mode prop
 }) {
   const [postText, setPostText] = useState('')
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(post?.postImage || null)
 
   useEffect(() => {
     if (post) {
@@ -38,7 +39,7 @@ export function PostCompose({
   }
 
   const handleSaveClick = async () => {
-    if (post) {
+    if (mode === 'edit') {
       await postService.editPost(post.id, {
         text: postText,
         postImage: selectedImage,
@@ -62,12 +63,12 @@ export function PostCompose({
           <button className='modal__header__button' onClick={toggleModal}>
             Cancel
           </button>
-          <h2>{post ? 'Edit Post' : 'Create Post'}</h2>
+          <h2>{mode === 'edit' ? 'Edit Info' : 'Create new post'}</h2>
           <button
             className='modal__header__button done__button'
             onClick={handleSaveClick}
           >
-            {post ? 'Save' : 'Create'}
+            {mode === 'edit' ? 'Done' : 'Upload'}
           </button>
         </div>
         <div className='modal__body'>

@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import Avatar from '@mui/material/Avatar'
 import UploadPlaceHolder from '../assets/svg/UploadPlaceholder.jsx'
 
-export function CreatePost({ shouldShowCreateModal, toggleCreateModal, user }) {
+export function CreatePost({
+  shouldShowCreateModal,
+  toggleCreateModal,
+  user,
+  openPostCompose,
+}) {
   const [selectedImage, setSelectedImage] = useState(null)
 
   const handleImageChange = (event) => {
@@ -23,8 +27,8 @@ export function CreatePost({ shouldShowCreateModal, toggleCreateModal, user }) {
     document.body.classList.add('active-modal')
   }
 
-  const handleNextClick = async () => {
-    // Implement the logic for creating a new post here
+  const handleNextClick = () => {
+    openPostCompose(selectedImage)
     toggleCreateModal()
   }
 

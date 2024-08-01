@@ -16,6 +16,8 @@ function App() {
   const [posts, setPosts] = useState([])
   const [isComposeModalOpen, setComposeModalOpen] = useState(false)
   const [isCreateModalOpen, setCreateModalOpen] = useState(false)
+  const [selectedImageForCompose, setSelectedImageForCompose] = useState(null)
+  const [mode, setMode] = useState('create') // new state variable for mode
   const [params] = useSearchParams()
 
   const selectedPostId = params.get('postId')
@@ -44,6 +46,12 @@ function App() {
     setCreateModalOpen(!isCreateModalOpen)
   }
 
+  const openPostCompose = (image) => {
+    setSelectedImageForCompose(image)
+    setMode('create') // Set mode to create
+    setComposeModalOpen(true)
+  }
+
   const editedPost = posts.find((post) => post.id === editedPostId)
   const selectedPost = posts.find((post) => post.id === selectedPostId)
 
@@ -62,7 +70,11 @@ function App() {
               user={user}
               posts={posts}
               fetchPosts={fetchPosts}
-              setEditedPostId={setEditedPostId}
+              setEditedPostId={(id) => {
+                setEditedPostId(id)
+                setMode('edit') // Set mode to edit when editing a post
+                setComposeModalOpen(true)
+              }}
               currentUser={user}
             />
           }
@@ -73,9 +85,13 @@ function App() {
         <PostCompose
           user={user}
           shouldShowComposeModal={true}
-          toggleModal={() => setEditedPostId(null)}
+          toggleModal={() => {
+            setEditedPostId(null)
+            toggleComposeModal()
+          }}
           fetchPosts={fetchPosts}
           post={editedPost}
+          mode={mode}
         />
       )}
       {isCreateModalOpen && (
@@ -83,6 +99,17 @@ function App() {
           user={user}
           shouldShowCreateModal={isCreateModalOpen}
           toggleCreateModal={toggleCreateModal}
+          openPostCompose={openPostCompose}
+        />
+      )}
+      {isComposeModalOpen && !editedPost && (
+        <PostCompose
+          user={user}
+          shouldShowComposeModal={true}
+          toggleModal={toggleComposeModal}
+          fetchPosts={fetchPosts}
+          post={{ postImage: selectedImageForCompose, text: '' }}
+          mode={mode}
         />
       )}
       <PostDetails
