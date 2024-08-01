@@ -23,9 +23,13 @@ export function CreatePost({ shouldShowCreateModal, toggleCreateModal, user }) {
     document.body.classList.add('active-modal')
   }
 
-  const handleCreateClick = async () => {
+  const handleNextClick = async () => {
     // Implement the logic for creating a new post here
     toggleCreateModal()
+  }
+
+  const handleCancelClick = () => {
+    setSelectedImage(null)
   }
 
   return (
@@ -33,19 +37,23 @@ export function CreatePost({ shouldShowCreateModal, toggleCreateModal, user }) {
       <div onClick={toggleCreateModal} className='create-overlay'></div>
       <div className='create-modal__content'>
         <div className='create-modal__header'>
-          <button
-            className='create-modal__header__button'
-            onClick={toggleCreateModal}
-          >
-            Cancel
-          </button>
-          <h2>Create Post</h2>
-          <button
-            className='create-modal__header__button done__button'
-            onClick={handleCreateClick}
-          >
-            Create
-          </button>
+          {selectedImage && (
+            <button
+              className='create-modal__header__button'
+              onClick={handleCancelClick}
+            >
+              Back
+            </button>
+          )}
+          <h2>Create new post</h2>
+          {selectedImage && (
+            <button
+              className='create-modal__header__button done__button'
+              onClick={handleNextClick}
+            >
+              Next
+            </button>
+          )}
         </div>
         <div className='create-modal__body'>
           {!selectedImage ? (
