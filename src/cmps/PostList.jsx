@@ -19,7 +19,6 @@ export function PostList({ currentUser, posts, fetchPosts, setEditedPostId }) {
                 currentUser={currentUser}
                 {...post}
               />
-              // <pre>{JSON.stringify(post.likes)}</pre>
             )
           })}
         </div>

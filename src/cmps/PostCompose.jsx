@@ -9,17 +9,13 @@ export function PostCompose({
   user,
   post,
 }) {
-  const [step, setStep] = useState(0)
   const [postText, setPostText] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
-
-  const isEdit = !!post
 
   useEffect(() => {
     if (post) {
       setPostText(post.text)
       setSelectedImage(post.postImage)
-      setStep(1)
     }
   }, [post])
 
@@ -41,13 +37,8 @@ export function PostCompose({
     document.body.classList.add('active-modal')
   }
 
-  const handleStepClick = async () => {
-    if (step === 0) {
-      setStep((currentStep) => currentStep + 1)
-      return
-    }
-
-    if (isEdit) {
+  const handleSaveClick = async () => {
+    if (post) {
       await postService.editPost(post.id, {
         text: postText,
         postImage: selectedImage,
@@ -71,12 +62,12 @@ export function PostCompose({
           <button className='modal__header__button' onClick={toggleModal}>
             Cancel
           </button>
-          <h2>Edit Info</h2>
+          <h2>{post ? 'Edit Post' : 'Create Post'}</h2>
           <button
             className='modal__header__button done__button'
-            onClick={handleStepClick}
+            onClick={handleSaveClick}
           >
-            Done
+            {post ? 'Save' : 'Create'}
           </button>
         </div>
         <div className='modal__body'>
@@ -95,6 +86,7 @@ export function PostCompose({
               </div>
             </div>
             <textarea
+              className='user__info__textarea'
               value={postText}
               onChange={(e) => setPostText(e.target.value)}
               placeholder='Write a caption...'

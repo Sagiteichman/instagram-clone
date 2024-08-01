@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import LikeIcon from '../assets/svg/Like.jsx'
 import { LikeFilled } from '../assets/svg/LikeFilled.jsx'
@@ -27,8 +28,17 @@ function PostPreview({
   const [params, setParams] = useSearchParams()
 
   useEffect(() => {
-    console.log(id)
-  })
+    console.log('PostPreview props:', {
+      id,
+      user,
+      postImage,
+      likes,
+      timestamp,
+      comments,
+      text,
+      currentUser,
+    })
+  }, [id, user, postImage, likes, timestamp, comments, text, currentUser])
 
   const openDetails = () => {
     params.append('postId', id)
@@ -51,17 +61,8 @@ function PostPreview({
     setEditedPostId(id)
     setIsMenuOpen(false)
   }
-  const isLiked = likes.includes(user.id)
-  // const isLiked = true
 
-  const onLikeClick = async () => {
-    await postService.editPost(id, {
-      likes: isLiked
-        ? likes.filter((like) => like !== currentUser.id)
-        : [...likes, currentUser.id],
-    })
-    await fetchPosts()
-  }
+  const isLiked = likes?.includes(currentUser?.id)
 
   if (!id) return <div>loading...</div>
   return (
@@ -89,9 +90,9 @@ function PostPreview({
         <div className='post__footerIcons'>
           <div className='post__iconsMain'>
             {isLiked ? (
-              <LikeFilled className='postIcon' onClick={onLikeClick} />
+              <LikeFilled className='postIcon' />
             ) : (
-              <LikeIcon className='postIcon' onClick={onLikeClick} />
+              <LikeIcon className='postIcon' />
             )}
             <CommentIcon className='postIcon' />
             <ShareIcon className='postIcon' />
@@ -102,7 +103,7 @@ function PostPreview({
         </div>
         <div className='foother__description'>
           <span className='footer__likes'>
-            {likes.length > 0 &&
+            {likes?.length > 0 &&
               `${likes.length} like${likes.length > 1 ? 's' : ''}`}
           </span>
           <div>
@@ -111,16 +112,16 @@ function PostPreview({
           </div>
           {comments?.slice(0, 2)?.map((comment) => {
             return (
-              <div className='footer__comments'>
-                {comment.user.name}:
+              <div className='footer__comments' key={comment.userId}>
+                {comment.user?.name}:
                 <span className='post__comment'>{comment.text}</span>
               </div>
             )
           })}
-          {comments?.length && (
+          {comments?.length > 0 && (
             <div onClick={openDetails}>
               <span className='footer__viewcomments'>
-                View all {comments?.length} comments
+                View all {comments.length} comments
               </span>
             </div>
           )}
@@ -129,13 +130,26 @@ function PostPreview({
       <div>
         <AddComment
           postId={id}
-          commenterId={currentUser.id}
+          commenterId={currentUser?.id}
           fetchPosts={fetchPosts}
           comments={comments}
         />
       </div>
     </div>
   )
+}
+
+PostPreview.propTypes = {
+  id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  postImage: PropTypes.string.isRequired,
+  likes: PropTypes.array.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  fetchPosts: PropTypes.func.isRequired,
+  comments: PropTypes.array.isRequired,
+  text: PropTypes.string,
+  setEditedPostId: PropTypes.func.isRequired,
+  currentUser: PropTypes.object.isRequired,
 }
 
 export default PostPreview

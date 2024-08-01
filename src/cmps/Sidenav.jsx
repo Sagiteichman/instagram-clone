@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Avatar } from '@mui/material'
 
 // Icons
 import HomeIcon from '../assets/svg/HomeFocus.jsx'
@@ -10,12 +11,10 @@ import ChatIcon from '../assets/svg/Messenger.jsx'
 import LikeIcon from '../assets/svg/Like.jsx'
 import CreateIcon from '../assets/svg/Create.jsx'
 import MoreIcon from '../assets/svg/Hamburger.jsx'
-import { Avatar } from '@mui/material'
 
-function Sidenav({ toggleModal, user }) {
+function Sidenav({ user, toggleCreateModal }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  console.log('pathname', pathname)
 
   const handleNavigate = (path) => {
     navigate(path)
@@ -32,7 +31,6 @@ function Sidenav({ toggleModal, user }) {
           <HomeIcon fill='white' />
           <span className='sidenav__text'>Home</span>
         </button>
-
         <button
           className={
             'sidenav__button' + (pathname === '/search' ? ' selected' : '')
@@ -41,7 +39,6 @@ function Sidenav({ toggleModal, user }) {
           <SearchIcon />
           <span className='sidenav__text'>Search</span>
         </button>
-
         <button
           className={
             'sidenav__button' + (pathname === '/explore' ? ' selected' : '')
@@ -50,7 +47,6 @@ function Sidenav({ toggleModal, user }) {
           <ExploreIcon />
           <span className='sidenav__text'>Explore</span>
         </button>
-
         <button
           className={
             'sidenav__button' + (pathname === '/reels' ? ' selected' : '')
@@ -59,7 +55,6 @@ function Sidenav({ toggleModal, user }) {
           <ReelsIcon />
           <span className='sidenav__text'>Reels</span>
         </button>
-
         <button
           className={
             'sidenav__button' + (pathname === '/messages' ? ' selected' : '')
@@ -68,7 +63,6 @@ function Sidenav({ toggleModal, user }) {
           <ChatIcon />
           <span className='sidenav__text'>Messages</span>
         </button>
-
         <button
           className={
             'sidenav__button' +
@@ -78,17 +72,15 @@ function Sidenav({ toggleModal, user }) {
           <LikeIcon />
           <span className='sidenav__text'>Notifications</span>
         </button>
-
         <button
           className={
             'sidenav__button' + (pathname === '/create' ? ' selected' : '')
           }
-          onClick={toggleModal}
+          onClick={toggleCreateModal}
         >
           <CreateIcon />
           <span className='sidenav__text'>Create</span>
         </button>
-
         <button
           className={
             'sidenav__button avatar__button' +
@@ -108,7 +100,6 @@ function Sidenav({ toggleModal, user }) {
           <span className='sidenav__text'>Profile</span>
         </button>
       </div>
-
       <div className='sidenav_spacer'></div>
       <div className='sidenav__more'>
         <button

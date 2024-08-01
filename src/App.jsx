@@ -7,6 +7,7 @@ import Sidenav from './cmps/Sidenav.jsx'
 import { userService } from './services/users.service.js'
 import { postService } from './services/posts.service.js'
 import { PostCompose } from './cmps/PostCompose.jsx'
+import { CreatePost } from './cmps/CreatePost.jsx'
 import { PostDetails } from './cmps/PostDetails.jsx'
 
 function App() {
@@ -14,13 +15,13 @@ function App() {
   const [editedPostId, setEditedPostId] = useState(null)
   const [posts, setPosts] = useState([])
   const [isComposeModalOpen, setComposeModalOpen] = useState(false)
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false)
   const [params] = useSearchParams()
 
   const selectedPostId = params.get('postId')
 
   const fetchPosts = async () => {
     const posts = await postService.getPosts()
-    console.log(posts)
     if (!posts) return
     setPosts(posts)
   }
@@ -35,18 +36,24 @@ function App() {
     fetchUser()
   }, [])
 
+  const toggleComposeModal = () => {
+    setComposeModalOpen(!isComposeModalOpen)
+  }
+
+  const toggleCreateModal = () => {
+    setCreateModalOpen(!isCreateModalOpen)
+  }
+
   const editedPost = posts.find((post) => post.id === editedPostId)
   const selectedPost = posts.find((post) => post.id === selectedPostId)
-  const shouldShowComposeModal = editedPost || isComposeModalOpen
-
-  const toggleComposeModal = () => {
-    setComposeModalOpen(!shouldShowComposeModal)
-    setEditedPostId(null)
-  }
 
   return (
     <>
-      <Sidenav toggleModal={toggleComposeModal} user={user} />
+      <Sidenav
+        toggleModal={toggleComposeModal}
+        toggleCreateModal={toggleCreateModal}
+        user={user}
+      />
       <Routes>
         <Route
           path='/'
@@ -62,13 +69,20 @@ function App() {
         />
         <Route path='/profile' element={<ProfilePage />} />
       </Routes>
-      {shouldShowComposeModal && (
+      {editedPost && (
         <PostCompose
           user={user}
-          shouldShowComposeModal={shouldShowComposeModal}
-          toggleModal={toggleComposeModal}
+          shouldShowComposeModal={true}
+          toggleModal={() => setEditedPostId(null)}
           fetchPosts={fetchPosts}
           post={editedPost}
+        />
+      )}
+      {isCreateModalOpen && (
+        <CreatePost
+          user={user}
+          shouldShowCreateModal={isCreateModalOpen}
+          toggleCreateModal={toggleCreateModal}
         />
       )}
       <PostDetails
