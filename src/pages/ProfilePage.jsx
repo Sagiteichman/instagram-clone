@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { postService } from '../services/posts.service.js'
 import { userService } from '../services/users.service.js'
+import { useSearchParams } from 'react-router-dom'
 
 export function ProfilePage() {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
+  const [params, setParams] = useSearchParams()
 
   useEffect(() => {
     fetchUser()
@@ -20,6 +22,11 @@ export function ProfilePage() {
     const posts = await postService.getPosts()
     const userPosts = posts.filter((post) => post.user.id === '1') // Needs to be replaced with dynamic user ID
     setPosts(userPosts)
+  }
+
+  const handlePostClick = (postId) => {
+    params.set('postId', postId)
+    setParams(params)
   }
 
   if (!user) return <div>Loading...</div>
@@ -39,7 +46,11 @@ export function ProfilePage() {
         </div>
         <div className='profile-posts'>
           {posts.map((post) => (
-            <div key={post.id} className='profile-post'>
+            <div
+              key={post.id}
+              className='profile-post'
+              onClick={() => handlePostClick(post.id)}
+            >
               <img src={post.postImage} alt='Post' />
             </div>
           ))}
