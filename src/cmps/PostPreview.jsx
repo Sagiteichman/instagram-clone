@@ -8,7 +8,7 @@ import ShareIcon from '../assets/svg/Share.jsx'
 import SaveIcon from '../assets/svg/Save.jsx'
 import { PostMenu } from './PostOptions'
 import { postService } from '../services/posts.service'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Author } from './Author.jsx'
 import { AddComment } from './AddComment.jsx'
 
@@ -26,6 +26,7 @@ function PostPreview({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [params, setParams] = useSearchParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     console.log('PostPreview props:', {
@@ -64,6 +65,10 @@ function PostPreview({
 
   const isLiked = likes?.includes(currentUser?.id)
 
+  const navigateToProfile = (userId) => {
+    navigate(`/profile/${userId}`)
+  }
+
   if (!id) return <div>loading...</div>
   return (
     <div className='post'>
@@ -72,6 +77,7 @@ function PostPreview({
           name={user?.name}
           imageUrl={user?.imageUrl || postImage}
           timestamp={timestamp}
+          onClick={() => navigateToProfile(user.id)} // Navigate to user profile
         />
         <MoreHorizIcon onClick={() => setIsMenuOpen((isOpen) => !isOpen)} />
         {isMenuOpen && (
@@ -107,12 +113,21 @@ function PostPreview({
               `${likes.length} like${likes.length > 1 ? 's' : ''}`}
           </span>
           <div>
-            <span className='footer__username'>{user?.name || 'Guest'}</span>
+            <span
+              className='footer__username'
+              onClick={() => navigateToProfile(user.id)} // Navigate to user profile
+            >
+              {user?.name || 'Guest'}
+            </span>
             <span className='post__description'>{text}</span>
           </div>
           {comments?.slice(0, 2)?.map((comment) => {
             return (
-              <div className='footer__comments' key={comment.userId}>
+              <div
+                className='footer__comments'
+                key={comment.userId}
+                onClick={() => navigateToProfile(comment.userId)} // Navigate to commenter's profile
+              >
                 {comment.user?.name}:
                 <span className='post__comment'>{comment.text}</span>
               </div>

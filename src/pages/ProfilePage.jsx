@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { postService } from '../services/posts.service.js'
 import { userService } from '../services/users.service.js'
-import { useSearchParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentFull from '../assets/svg/CommentFull.jsx'
 
@@ -9,20 +9,23 @@ export function ProfilePage() {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [params, setParams] = useSearchParams()
+  const { userId } = useParams() // Get userId from URL parameters
 
   useEffect(() => {
-    fetchUser()
-    fetchPosts()
-  }, [])
+    if (userId) {
+      fetchUser(userId)
+      fetchPosts(userId)
+    }
+  }, [userId])
 
-  const fetchUser = async () => {
-    const user = await userService.getUserById('1') // Needs to be replaced with dynamic user ID
+  const fetchUser = async (id) => {
+    const user = await userService.getUserById(id)
     setUser(user)
   }
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (id) => {
     const posts = await postService.getPosts()
-    const userPosts = posts.filter((post) => post.user.id === '1') // Needs to be replaced with dynamic user ID
+    const userPosts = posts.filter((post) => post.user.id === id)
     setPosts(userPosts)
   }
 
@@ -41,8 +44,19 @@ export function ProfilePage() {
           <div className='profile-info'>
             <h2>{user.name}</h2>
             <div className='profile-stats'>
-              <span>{posts.length} posts</span>
-              {/* Add followers and following count */}
+              <span>
+                <span className='number'>{posts.length}</span> posts
+              </span>
+              <span>
+                <span className='number'>{user.followers}</span> followers
+              </span>
+              <span>
+                <span className='number'>{user.following}</span> following
+              </span>
+            </div>
+            <div className='profile-details'>
+              <span className='fullname'>{user.fullname}</span>
+              <p className='bio'>{user.bio}</p>
             </div>
           </div>
         </div>

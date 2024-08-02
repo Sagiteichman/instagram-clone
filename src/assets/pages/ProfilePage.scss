@@ -10,13 +10,20 @@
   width: calc(100% - 40px); // Instagram-like width
   max-width: 935px; // Instagram max width for profile page
   padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Center content vertically
 }
 
 .profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px; // Increased bottom margin by 20px
+  padding-top: 30px; // Increased top padding by 10px
   border-bottom: 1px solid rgba(128, 128, 128, 0.3); // Slightly thicker border
+  width: 100%;
+  justify-content: center; // Center header horizontally
+  padding-bottom: 100px;
 
   .profile-avatar {
     width: 150px;
@@ -32,14 +39,33 @@
     h2 {
       margin: 0;
       font-size: 28px; // Font size similar to Instagram
+      font-weight: 600; // Semi-bold for the username
     }
 
     .profile-stats {
       display: flex;
       gap: 20px; // Increased gap for better spacing
+      margin-bottom: 10px;
 
       span {
         font-size: 16px; // Font size similar to Instagram
+        font-weight: normal; // Normal weight for the text
+      }
+
+      .number {
+        font-weight: bold; // Bold for the numbers
+      }
+    }
+
+    .profile-details {
+      .fullname {
+        font-weight: 500; // Medium weight for fullname
+        font-size: 18px;
+      }
+
+      .bio {
+        font-size: 16px;
+        font-weight: normal; // Normal weight for bio text
       }
     }
   }
