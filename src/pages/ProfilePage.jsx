@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { postService } from '../services/posts.service.js'
 import { userService } from '../services/users.service.js'
 import { useSearchParams } from 'react-router-dom'
+import LikeFilled from '../assets/svg/LikeFilled.jsx'
+import CommentFull from '../assets/svg/CommentFull.jsx'
 
 export function ProfilePage() {
   const [user, setUser] = useState(null)
@@ -52,6 +54,18 @@ export function ProfilePage() {
               onClick={() => handlePostClick(post.id)}
             >
               <img src={post.postImage} alt='Post' />
+              <div className='post-overlay'>
+                <div className='post-icons'>
+                  <div className='post-icon'>
+                    <LikeFilled />
+                    <span>{post.likes.length}</span>
+                  </div>
+                  <div className='post-icon'>
+                    <CommentFull />
+                    <span>{post.comments.length}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
