@@ -1,52 +1,68 @@
 .profile-page {
   display: flex;
+  justify-content: center; // Center content horizontally
+  background-color: #000; // Instagram-like background
+  color: #fff; // Instagram-like text color
+  width: 100%;
 }
 
 .profile-content {
-  flex: 1;
-  padding: 20px;
+  width: calc(100% - 40px); // Instagram-like width
+  max-width: 935px; // Instagram max width for profile page
+  padding: 20px 0;
 }
 
 .profile-header {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 0.6px solid rgba(128, 128, 128, 0.3);
-}
+  border-bottom: 1px solid rgba(128, 128, 128, 0.3); // Slightly thicker border
 
-.profile-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    margin: 0;
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
   }
 
-  .profile-stats {
+  .profile-info {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+
+    h2 {
+      margin: 0;
+      font-size: 28px; // Font size similar to Instagram
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 20px; // Increased gap for better spacing
+
+      span {
+        font-size: 16px; // Font size similar to Instagram
+      }
+    }
   }
 }
 
 .profile-posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr); // Always 3 columns
+  gap: 5px; // Increased gap for better spacing
 
   .profile-post {
     position: relative;
+    overflow: hidden;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.1); // Zoom effect on hover
     }
   }
 }

@@ -6,6 +6,70 @@ html {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: black;
   color: #f5f5f5;
+
+  ::-webkit-scrollbar {
+    width: 17px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #424242;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #686868;
+    border: 2px, solid, #424242;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7b7b7b;
+  }
+
+  /* Up button */
+  ::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background: #424242;
+    height: 20px;
+    width: 20px;
+    border: none;
+    display: block;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M8 14l4-4 4 4z"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* Down button */
+  ::-webkit-scrollbar-button:single-button:vertical:increment {
+    background: #424242;
+    height: 20px;
+    width: 20px;
+    border: none;
+    display: block;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M8 10l4 4 4-4z"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* Hide the default scrollbar buttons */
+  ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+
+  /* Set custom height and width for scrollbar buttons */
+  ::-webkit-scrollbar-button:single-button {
+    display: block;
+    background: #424242;
+    border: none;
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Style for top and bottom corners */
+  ::-webkit-scrollbar-corner {
+    background: #424242;
+  }
 }
 
 body {

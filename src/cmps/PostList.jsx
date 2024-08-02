@@ -5,11 +5,13 @@ import PostPreview from './PostPreview.jsx'
 export function PostList({ currentUser, posts, fetchPosts, setEditedPostId }) {
   if (!posts.length) return <div>Loading Posts...</div>
 
+  const sortedPosts = [...posts].sort((a, b) => b.timestamp - a.timestamp)
+
   return (
     <div className='timeline'>
       <div className='timeline__left'>
         <div className='timeline__post'>
-          {posts.map((post) => {
+          {sortedPosts.map((post) => {
             if (!post.id) return <div>loading post...</div>
             return (
               <PostPreview
