@@ -23,13 +23,13 @@
   border-bottom: 1px solid rgba(128, 128, 128, 0.3); // Slightly thicker border
   width: 100%;
   justify-content: center; // Center header horizontally
-  padding-bottom: 100px;
 
   .profile-avatar {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 40px; // Increased margin between image and text
+    object-fit: cover; // Ensure the image is properly fitted
   }
 
   .profile-info {
@@ -39,7 +39,7 @@
     h2 {
       margin: 0;
       font-size: 28px; // Font size similar to Instagram
-      font-weight: 600; // Semi-bold for the username
+      font-weight: 400; // Lighter font weight for the username
     }
 
     .profile-stats {
@@ -64,8 +64,9 @@
       }
 
       .bio {
-        font-size: 16px;
-        font-weight: normal; // Normal weight for bio text
+        font-size: 14px; // Smaller font size for bio
+        font-weight: 300; // Lighter font weight for bio text
+        margin-top: 5px; // Small margin above the bio
       }
     }
   }

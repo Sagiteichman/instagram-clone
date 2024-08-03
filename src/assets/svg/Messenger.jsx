@@ -1,4 +1,4 @@
-const ChatIcon = () => {
+const ChatIcon = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -9,6 +9,7 @@ const ChatIcon = () => {
       role='img'
       viewBox='0 0 24 24'
       width='24'
+      {...props}
     >
       <title>Messenger</title>
       <path

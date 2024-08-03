@@ -92,3 +92,18 @@
   height: 40px;
   padding: 23px 78px 20px 5px;
 }
+.sidenav__button.selected .sidenav__text {
+  font-weight: bold;
+}
+
+.sidenav__button.selected .postIcon {
+  fill: white;
+}
+
+.sidenav__button.selected .sidenav__text {
+  font-weight: bold;
+}
+
+.sidenav__button.selected svg {
+  fill: white;
+}

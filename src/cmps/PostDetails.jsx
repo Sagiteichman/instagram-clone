@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Author } from './Author'
 import { Comment } from './Comment'
 import { AddComment } from './AddComment'
@@ -13,10 +13,15 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 
 export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
   const [params, setParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const closeModal = () => {
     params.delete('postId')
     setParams(params)
+  }
+
+  const navigateToProfile = (userId) => {
+    navigate(`/profile/${userId}`)
   }
 
   if (!selectedPost) return null
@@ -36,8 +41,14 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                   className='avatar'
                   src={selectedPost?.user?.imageUrl}
                   alt={selectedPost?.user?.name}
+                  onClick={() => navigateToProfile(selectedPost?.user?.id)} // Navigate to user profile
+                  style={{ cursor: 'pointer' }} // Add pointer cursor style
                 />
-                <span className='username'>
+                <span
+                  className='username'
+                  onClick={() => navigateToProfile(selectedPost?.user?.id)} // Navigate to user profile
+                  style={{ cursor: 'pointer' }} // Add pointer cursor style
+                >
                   {selectedPost?.user?.name || 'guest'}
                 </span>
                 <MoreHorizIcon className='moreIcon' />

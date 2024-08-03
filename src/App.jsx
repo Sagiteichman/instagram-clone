@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes, useSearchParams } from 'react-router-dom'
 import { HomepageIndex } from './pages/HomepageIndex.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx'
+import { Explore } from './cmps/Explore.jsx'
 import './assets/main.scss'
 import Sidenav from './cmps/Sidenav.jsx'
 import { userService } from './services/users.service.js'
@@ -80,6 +81,7 @@ function App() {
           }
         />
         <Route path='/profile/:userId' element={<ProfilePage />} />
+        <Route path='/explore' element={<Explore />} /> {/* Add this line */}
       </Routes>
       {editedPost && (
         <PostCompose

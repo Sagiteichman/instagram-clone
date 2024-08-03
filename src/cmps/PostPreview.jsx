@@ -116,6 +116,7 @@ function PostPreview({
             <span
               className='footer__username'
               onClick={() => navigateToProfile(user.id)} // Navigate to user profile
+              style={{ cursor: 'pointer' }} // Add pointer cursor style
             >
               {user?.name || 'Guest'}
             </span>
@@ -127,6 +128,7 @@ function PostPreview({
                 className='footer__comments'
                 key={comment.userId}
                 onClick={() => navigateToProfile(comment.userId)} // Navigate to commenter's profile
+                style={{ cursor: 'pointer' }} // Add pointer cursor style
               >
                 {comment.user?.name}:
                 <span className='post__comment'>{comment.text}</span>

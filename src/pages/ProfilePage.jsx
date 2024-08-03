@@ -4,6 +4,9 @@ import { userService } from '../services/users.service.js'
 import { useParams, useSearchParams } from 'react-router-dom'
 import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentFull from '../assets/svg/CommentFull.jsx'
+import ShowSaved from '../assets/svg/ShowSaved.jsx'
+import ShowSUploaded from '../assets/svg/ShowUploaded.jsx'
+import ShowSTagged from '../assets/svg/ShowTagged.jsx'
 
 export function ProfilePage() {
   const [user, setUser] = useState(null)
