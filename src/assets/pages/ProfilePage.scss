@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center; // Center content horizontally
   background-color: #000; // Instagram-like background
-  color: #fff; // Instagram-like text color
+  color: #f5f5f5; // Instagram-like text color
   width: 100%;
 }
 
@@ -18,7 +18,7 @@
 .profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 40px; // Increased bottom margin by 20px
+  padding-bottom: 40px; // Increased bottom margin by 20px
   padding-top: 30px; // Increased top padding by 10px
   border-bottom: 1px solid rgba(128, 128, 128, 0.3); // Slightly thicker border
   width: 100%;
@@ -36,10 +36,33 @@
     display: flex;
     flex-direction: column;
 
-    h2 {
-      margin: 0;
-      font-size: 28px; // Font size similar to Instagram
-      font-weight: 400; // Lighter font weight for the username
+    .profile-header-top {
+      display: flex;
+      align-items: center;
+
+      h2 {
+        margin: 0;
+        font-size: 28px; // Font size similar to Instagram
+        font-weight: 400; // Lighter font weight for the username
+        margin-right: 20px; // Add margin to the right of the username
+      }
+
+      .edit-profile-btn,
+      .view-archive-btn {
+        font-weight: bold;
+        background: #363636;
+        border: none;
+        color: #f5f5f5;
+        padding: 8px 10px;
+        border-radius: 8px;
+        margin-left: 10px; // Space between the buttons
+        cursor: pointer;
+      }
+
+      .edit-profile-btn:hover,
+      .view-archive-btn:hover {
+        background: #262626;
+      }
     }
 
     .profile-stats {
@@ -49,7 +72,7 @@
 
       span {
         font-size: 16px; // Font size similar to Instagram
-        font-weight: normal; // Normal weight for the text
+        font-weight: 300; // Normal weight for the text
       }
 
       .number {
@@ -68,6 +91,34 @@
         font-weight: 300; // Lighter font weight for bio text
         margin-top: 5px; // Small margin above the bio
       }
+    }
+  }
+}
+
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+
+  .tab-button {
+    font-size: 12px;
+    background: none;
+    border: none;
+    color: #a8a8a8;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px; // Space between icon and text
+
+    &.active {
+      color: #f5f5f5;
+      border-top: 2px solid #fff;
+    }
+
+    &:hover {
+      color: #fff;
     }
   }
 }
@@ -109,7 +160,7 @@
       .post-icons {
         display: flex;
         gap: 10px;
-        color: #fff;
+        color: #f5f5f5;
 
         .post-icon {
           display: flex;

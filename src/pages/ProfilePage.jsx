@@ -5,12 +5,13 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentFull from '../assets/svg/CommentFull.jsx'
 import ShowSaved from '../assets/svg/ShowSaved.jsx'
-import ShowSUploaded from '../assets/svg/ShowUploaded.jsx'
-import ShowSTagged from '../assets/svg/ShowTagged.jsx'
+import ShowUploaded from '../assets/svg/ShowUploaded.jsx'
+import ShowTagged from '../assets/svg/ShowTagged.jsx'
 
 export function ProfilePage() {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
+  const [tab, setTab] = useState('POSTS') // State to manage selected tab
   const [params, setParams] = useSearchParams()
   const { userId } = useParams() // Get userId from URL parameters
 
@@ -45,7 +46,15 @@ export function ProfilePage() {
         <div className='profile-header'>
           <img src={user.imageUrl} alt={user.name} className='profile-avatar' />
           <div className='profile-info'>
-            <h2>{user.name}</h2>
+            <div className='profile-header-top'>
+              <h2>{user.name}</h2>
+              {user.id === '1' && ( // Show buttons only for user.id === '1'
+                <>
+                  <button className='edit-profile-btn'>Edit Profile</button>
+                  <button className='view-archive-btn'>View Archive</button>
+                </>
+              )}
+            </div>
             <div className='profile-stats'>
               <span>
                 <span className='number'>{posts.length}</span> posts
@@ -62,6 +71,29 @@ export function ProfilePage() {
               <p className='bio'>{user.bio}</p>
             </div>
           </div>
+        </div>
+        <div className='profile-tabs'>
+          <button
+            className={`tab-button ${tab === 'POSTS' ? 'active' : ''}`}
+            onClick={() => setTab('POSTS')}
+          >
+            <ShowUploaded />
+            POSTS
+          </button>
+          <button
+            className={`tab-button ${tab === 'SAVED' ? 'active' : ''}`}
+            onClick={() => setTab('SAVED')}
+          >
+            <ShowSaved />
+            SAVED
+          </button>
+          <button
+            className={`tab-button ${tab === 'TAGGED' ? 'active' : ''}`}
+            onClick={() => setTab('TAGGED')}
+          >
+            <ShowTagged />
+            TAGGED
+          </button>
         </div>
         <div className='profile-posts'>
           {posts.map((post) => (
