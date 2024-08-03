@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Comment } from './Comment'
 import { AddComment } from './AddComment'
@@ -5,14 +6,26 @@ import { timeSince } from '../services/timeSince'
 
 // icons
 import LikeIcon from '../assets/svg/Like.jsx'
+import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentIcon from '../assets/svg/Comment.jsx'
 import ShareIcon from '../assets/svg/Share.jsx'
 import SaveIcon from '../assets/svg/Save.jsx'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { postService } from '../services/posts.service'
 
-export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
+export const PostDetails = ({
+  selectedPost,
+  currentUser,
+  fetchPosts,
+  updatePostLikes,
+}) => {
   const [params, setParams] = useSearchParams()
+  const [localLikes, setLocalLikes] = useState(selectedPost?.likes || [])
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setLocalLikes(selectedPost?.likes || [])
+  }, [selectedPost])
 
   const closeModal = () => {
     params.delete('postId')
@@ -22,6 +35,20 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
   const navigateToProfile = (userId) => {
     navigate(`/profile/${userId}`)
   }
+
+  const handleLike = async () => {
+    if (currentUser && currentUser.id) {
+      const updatedPost = await postService.updatePostLikes(
+        selectedPost.id,
+        currentUser.id
+      )
+      setLocalLikes(updatedPost.likes)
+      fetchPosts()
+      updatePostLikes(selectedPost.id, updatedPost.likes)
+    }
+  }
+
+  const isLiked = currentUser ? localLikes.includes(currentUser.id) : false
 
   if (!selectedPost) return null
 
@@ -95,16 +122,18 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                 <div className='postActions'>
                   <div className='iconsRow'>
                     <div className='leftIcons'>
-                      <LikeIcon className='postIcon' />
+                      {isLiked ? (
+                        <LikeFilled className='postIcon' onClick={handleLike} />
+                      ) : (
+                        <LikeIcon className='postIcon' onClick={handleLike} />
+                      )}
                       <CommentIcon className='postIcon' />
                       <ShareIcon className='postIcon' />
                     </div>
                     <SaveIcon className='postIcon saveIcon' />
                   </div>
                   <div className='likes'>
-                    <span className='bold'>
-                      {selectedPost?.likes.length} Likes
-                    </span>
+                    <span className='bold'>{localLikes.length} Likes</span>
                   </div>
                   <div className='timestamp'>
                     {timeSince(selectedPost?.timestamp).toLocaleString()}

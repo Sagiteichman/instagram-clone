@@ -11,6 +11,7 @@ import ShowTagged from '../assets/svg/ShowTagged.jsx'
 export function ProfilePage() {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
+  const [savedPosts, setSavedPosts] = useState([]) // New state for saved posts
   const [tab, setTab] = useState('POSTS') // State to manage selected tab
   const [params, setParams] = useSearchParams()
   const { userId } = useParams() // Get userId from URL parameters
@@ -22,9 +23,19 @@ export function ProfilePage() {
     }
   }, [userId])
 
+  useEffect(() => {
+    // Reset the tab to 'POSTS' whenever the userId changes
+    setTab('POSTS')
+  }, [userId])
+
   const fetchUser = async (id) => {
     const user = await userService.getUserById(id)
     setUser(user)
+    if (user.saved) {
+      const allPosts = await postService.getPosts()
+      const savedPosts = allPosts.filter((post) => user.saved.includes(post.id))
+      setSavedPosts(savedPosts)
+    }
   }
 
   const fetchPosts = async (id) => {
@@ -36,6 +47,30 @@ export function ProfilePage() {
   const handlePostClick = (postId) => {
     params.set('postId', postId)
     setParams(params)
+  }
+
+  const renderPosts = (postsToRender) => {
+    return postsToRender.map((post) => (
+      <div
+        key={post.id}
+        className='profile-post'
+        onClick={() => handlePostClick(post.id)}
+      >
+        <img src={post.postImage} alt='Post' />
+        <div className='post-overlay'>
+          <div className='post-icons'>
+            <div className='post-icon'>
+              <LikeFilled />
+              <span>{post.likes.length}</span>
+            </div>
+            <div className='post-icon'>
+              <CommentFull />
+              <span>{post.comments.length}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
   }
 
   if (!user) return <div>Loading...</div>
@@ -96,27 +131,11 @@ export function ProfilePage() {
           </button>
         </div>
         <div className='profile-posts'>
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className='profile-post'
-              onClick={() => handlePostClick(post.id)}
-            >
-              <img src={post.postImage} alt='Post' />
-              <div className='post-overlay'>
-                <div className='post-icons'>
-                  <div className='post-icon'>
-                    <LikeFilled />
-                    <span>{post.likes.length}</span>
-                  </div>
-                  <div className='post-icon'>
-                    <CommentFull />
-                    <span>{post.comments.length}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          {tab === 'POSTS' && renderPosts(posts)}
+          {tab === 'SAVED' && renderPosts(savedPosts)}
+          {tab === 'TAGGED' && (
+            <div>Tagged posts functionality not implemented yet.</div>
+          )}
         </div>
       </div>
     </div>

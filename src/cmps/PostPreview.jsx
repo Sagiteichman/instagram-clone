@@ -23,23 +23,16 @@ function PostPreview({
   text = '',
   setEditedPostId,
   currentUser,
+  updatePostLikes, // Receive the function here
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [params, setParams] = useSearchParams()
+  const [localLikes, setLocalLikes] = useState(likes)
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('PostPreview props:', {
-      id,
-      user,
-      postImage,
-      likes,
-      timestamp,
-      comments,
-      text,
-      currentUser,
-    })
-  }, [id, user, postImage, likes, timestamp, comments, text, currentUser])
+    setLocalLikes(likes)
+  }, [likes])
 
   const openDetails = () => {
     params.append('postId', id)
@@ -63,7 +56,15 @@ function PostPreview({
     setIsMenuOpen(false)
   }
 
-  const isLiked = likes?.includes(currentUser?.id)
+  const handleLike = async () => {
+    if (currentUser && currentUser.id) {
+      const updatedPost = await postService.updatePostLikes(id, currentUser.id)
+      setLocalLikes(updatedPost.likes)
+      updatePostLikes(id, updatedPost.likes) // Call the function here
+    }
+  }
+
+  const isLiked = currentUser ? localLikes.includes(currentUser.id) : false
 
   const navigateToProfile = (userId) => {
     navigate(`/profile/${userId}`)
@@ -96,9 +97,9 @@ function PostPreview({
         <div className='post__footerIcons'>
           <div className='post__iconsMain'>
             {isLiked ? (
-              <LikeFilled className='postIcon' />
+              <LikeFilled className='postIcon' onClick={handleLike} />
             ) : (
-              <LikeIcon className='postIcon' />
+              <LikeIcon className='postIcon' onClick={handleLike} />
             )}
             <CommentIcon className='postIcon' />
             <ShareIcon className='postIcon' />
@@ -109,8 +110,8 @@ function PostPreview({
         </div>
         <div className='footer__description'>
           <span className='footer__likes'>
-            {likes?.length > 0 &&
-              `${likes.length} like${likes.length > 1 ? 's' : ''}`}
+            {localLikes?.length > 0 &&
+              `${localLikes.length} like${localLikes.length > 1 ? 's' : ''}`}
           </span>
           <div>
             <span
@@ -122,19 +123,17 @@ function PostPreview({
             </span>
             <span className='post__description'>{text}</span>
           </div>
-          {comments?.slice(0, 2)?.map((comment) => {
-            return (
-              <div
-                className='footer__comments'
-                key={comment.userId}
-                onClick={() => navigateToProfile(comment.userId)} // Navigate to commenter's profile
-                style={{ cursor: 'pointer' }}
-              >
-                {comment.user?.name}:
-                <span className='post__comment'>{comment.text}</span>
-              </div>
-            )
-          })}
+          {comments?.slice(0, 2)?.map((comment) => (
+            <div
+              className='footer__comments'
+              key={comment.userId}
+              onClick={() => navigateToProfile(comment.userId)} // Navigate to commenter's profile
+              style={{ cursor: 'pointer' }}
+            >
+              {comment.user?.name}:
+              <span className='post__comment'>{comment.text}</span>
+            </div>
+          ))}
           {comments?.length > 0 && (
             <div onClick={openDetails}>
               <span className='footer__viewcomments'>
@@ -167,6 +166,7 @@ PostPreview.propTypes = {
   text: PropTypes.string,
   setEditedPostId: PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired,
+  updatePostLikes: PropTypes.func.isRequired, // Add this line
 }
 
 export default PostPreview

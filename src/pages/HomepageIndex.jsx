@@ -7,6 +7,7 @@ export function HomepageIndex({
   fetchPosts,
   user,
   setEditedPostId,
+  updatePostLikes, // Receive the function here
 }) {
   if (!posts || !posts.length) return <div>loading posts...</div>
   return (
@@ -18,6 +19,7 @@ export function HomepageIndex({
           currentUser={currentUser}
           user={user}
           setEditedPostId={setEditedPostId}
+          updatePostLikes={updatePostLikes} // Pass the function here
         />
       </div>
     </div>

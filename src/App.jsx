@@ -34,6 +34,12 @@ function App() {
     setUser(user)
   }
 
+  const updatePostLikes = (postId, likes) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => (post.id === postId ? { ...post, likes } : post))
+    )
+  }
+
   useEffect(() => {
     fetchPosts()
     fetchUser()
@@ -77,6 +83,7 @@ function App() {
                 setComposeModalOpen(true)
               }}
               currentUser={user}
+              updatePostLikes={updatePostLikes} // Pass the function here
             />
           }
         />
@@ -114,11 +121,14 @@ function App() {
           mode={mode}
         />
       )}
-      <PostDetails
-        selectedPost={selectedPost}
-        currentUser={user}
-        fetchPosts={fetchPosts}
-      />
+      {selectedPost && (
+        <PostDetails
+          selectedPost={selectedPost}
+          currentUser={user}
+          fetchPosts={fetchPosts}
+          updatePostLikes={updatePostLikes} // Pass the function here
+        />
+      )}
     </>
   )
 }
