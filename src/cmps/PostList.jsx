@@ -8,6 +8,7 @@ export function PostList({
   fetchPosts,
   setEditedPostId,
   updatePostLikes,
+  updateCurrentUserSaved, // Add this line
 }) {
   if (!posts.length) return <div>Loading Posts...</div>
 
@@ -26,6 +27,7 @@ export function PostList({
                 setEditedPostId={setEditedPostId}
                 currentUser={currentUser}
                 updatePostLikes={updatePostLikes} // Pass the function here
+                updateCurrentUserSaved={updateCurrentUserSaved} // Add this line
                 {...post}
               />
             )

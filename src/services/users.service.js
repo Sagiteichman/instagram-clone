@@ -1,4 +1,3 @@
-// userService.js
 import { API_BASE_URL } from '../constants.js'
 
 async function getUserById(userId) {
@@ -13,7 +12,6 @@ async function getUsers() {
   return users
 }
 
-// New function to save a post for a user
 async function savePost(userId, postId) {
   const response = await fetch(`${API_BASE_URL}/users/${userId}/save`, {
     method: 'PATCH',
@@ -26,7 +24,6 @@ async function savePost(userId, postId) {
   return updatedUser
 }
 
-// New function to unsave a post for a user
 async function unsavePost(userId, postId) {
   const response = await fetch(`${API_BASE_URL}/users/${userId}/unsave`, {
     method: 'PATCH',

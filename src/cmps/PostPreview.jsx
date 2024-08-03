@@ -6,8 +6,10 @@ import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentIcon from '../assets/svg/Comment.jsx'
 import ShareIcon from '../assets/svg/Share.jsx'
 import SaveIcon from '../assets/svg/Save.jsx'
+import Unsave from '../assets/svg/Unsave.jsx'
 import { PostMenu } from './PostOptions'
 import { postService } from '../services/posts.service'
+import { userService } from '../services/users.service'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Author } from './Author.jsx'
 import { AddComment } from './AddComment.jsx'
@@ -23,16 +25,19 @@ function PostPreview({
   text = '',
   setEditedPostId,
   currentUser,
-  updatePostLikes, // Receive the function here
+  updatePostLikes,
+  updateCurrentUserSaved,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [params, setParams] = useSearchParams()
   const [localLikes, setLocalLikes] = useState(likes)
+  const [isSaved, setIsSaved] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     setLocalLikes(likes)
-  }, [likes])
+    setIsSaved(currentUser?.saved.includes(id))
+  }, [likes, currentUser?.saved, id])
 
   const openDetails = () => {
     params.append('postId', id)
@@ -40,14 +45,10 @@ function PostPreview({
   }
 
   const handleDelete = async () => {
-    console.log('delete post', id)
     const result = await postService.deletePost(id)
     if (result.success) {
       fetchPosts()
-      console.log('post deleted', result)
       setIsMenuOpen(false)
-    } else {
-      console.log('error deleting post', result)
     }
   }
 
@@ -60,7 +61,20 @@ function PostPreview({
     if (currentUser && currentUser.id) {
       const updatedPost = await postService.updatePostLikes(id, currentUser.id)
       setLocalLikes(updatedPost.likes)
-      updatePostLikes(id, updatedPost.likes) // Call the function here
+      updatePostLikes(id, updatedPost.likes)
+    }
+  }
+
+  const handleSaveToggle = async () => {
+    if (currentUser && currentUser.id) {
+      const action = isSaved ? 'unsavePost' : 'savePost'
+      try {
+        const updatedUser = await userService[action](currentUser.id, id)
+        setIsSaved(!isSaved)
+        updateCurrentUserSaved(updatedUser.saved)
+      } catch (error) {
+        console.error('Error saving post:', error)
+      }
     }
   }
 
@@ -104,8 +118,16 @@ function PostPreview({
             <CommentIcon className='postIcon' />
             <ShareIcon className='postIcon' />
           </div>
-          <div className='post__iconsSave'>
-            <SaveIcon className='postIcon' />
+          <div
+            className='post__iconsSave'
+            onClick={handleSaveToggle}
+            style={{ cursor: 'pointer' }}
+          >
+            {isSaved ? (
+              <Unsave className='postIcon' />
+            ) : (
+              <SaveIcon className='postIcon' />
+            )}
           </div>
         </div>
         <div className='footer__description'>
@@ -166,7 +188,8 @@ PostPreview.propTypes = {
   text: PropTypes.string,
   setEditedPostId: PropTypes.func.isRequired,
   currentUser: PropTypes.object.isRequired,
-  updatePostLikes: PropTypes.func.isRequired, // Add this line
+  updatePostLikes: PropTypes.func.isRequired,
+  updateCurrentUserSaved: PropTypes.func.isRequired,
 }
 
 export default PostPreview

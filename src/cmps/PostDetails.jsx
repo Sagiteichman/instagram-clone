@@ -10,8 +10,10 @@ import LikeFilled from '../assets/svg/LikeFilled.jsx'
 import CommentIcon from '../assets/svg/Comment.jsx'
 import ShareIcon from '../assets/svg/Share.jsx'
 import SaveIcon from '../assets/svg/Save.jsx'
+import Unsave from '../assets/svg/Unsave.jsx'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { postService } from '../services/posts.service'
+import { userService } from '../services/users.service'
 
 export const PostDetails = ({
   selectedPost,
@@ -19,18 +21,21 @@ export const PostDetails = ({
   fetchPosts,
   updatePostLikes,
   updatePostComments,
+  updateCurrentUserSaved,
 }) => {
   const [params, setParams] = useSearchParams()
   const [localLikes, setLocalLikes] = useState(selectedPost?.likes || [])
   const [localComments, setLocalComments] = useState(
     selectedPost?.comments || []
   )
+  const [isSaved, setIsSaved] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     setLocalLikes(selectedPost?.likes || [])
     setLocalComments(selectedPost?.comments || [])
-  }, [selectedPost])
+    setIsSaved(currentUser?.saved.includes(selectedPost.id))
+  }, [selectedPost, currentUser?.saved])
 
   const closeModal = () => {
     params.delete('postId')
@@ -50,6 +55,18 @@ export const PostDetails = ({
       )
       setLocalLikes(updatedPost.likes)
       updatePostLikes(selectedPost.id, updatedPost.likes)
+    }
+  }
+
+  const handleSaveToggle = async () => {
+    if (currentUser && currentUser.id) {
+      const action = isSaved ? 'unsavePost' : 'savePost'
+      const updatedUser = await userService[action](
+        currentUser.id,
+        selectedPost.id
+      )
+      setIsSaved(!isSaved)
+      updateCurrentUserSaved(updatedUser.saved)
     }
   }
 
@@ -115,7 +132,17 @@ export const PostDetails = ({
                       <CommentIcon className='postIcon' />
                       <ShareIcon className='postIcon' />
                     </div>
-                    <SaveIcon className='postIcon saveIcon' />
+                    <div
+                      className='post__iconsSave'
+                      onClick={handleSaveToggle}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {isSaved ? (
+                        <Unsave className='postIcon' />
+                      ) : (
+                        <SaveIcon className='postIcon' />
+                      )}
+                    </div>
                   </div>
                   <div className='likes'>
                     <span className='bold'>{localLikes.length} Likes</span>

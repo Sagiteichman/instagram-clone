@@ -38,6 +38,7 @@ postsRouter.post('/', (req, res) => {
     ...newPost,
     id: Math.random().toString(),
     likes: [],
+    comments: [],
     timestamp: Date.now(),
   }
   examplePosts.unshift(newPostWithId)

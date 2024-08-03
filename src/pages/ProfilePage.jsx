@@ -10,7 +10,12 @@ import ShowTagged from '../assets/svg/ShowTagged.jsx'
 import LikeIcon from '../assets/svg/Like.jsx'
 import CommentIcon from '../assets/svg/Comment.jsx'
 
-export function ProfilePage({ updatePostLikes, updatePostComments }) {
+export function ProfilePage({
+  updatePostLikes,
+  updatePostComments,
+  currentUser,
+  updateCurrentUserSaved,
+}) {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [savedPosts, setSavedPosts] = useState([]) // New state for saved posts

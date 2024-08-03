@@ -18,7 +18,7 @@ function App() {
   const [isComposeModalOpen, setComposeModalOpen] = useState(false)
   const [isCreateModalOpen, setCreateModalOpen] = useState(false)
   const [selectedImageForCompose, setSelectedImageForCompose] = useState(null)
-  const [mode, setMode] = useState('create') // new state variable for mode
+  const [mode, setMode] = useState('create')
   const [params] = useSearchParams()
 
   const selectedPostId = params.get('postId')
@@ -46,6 +46,10 @@ function App() {
         post.id === postId ? { ...post, comments } : post
       )
     )
+  }
+
+  const updateCurrentUserSaved = (savedPosts) => {
+    setUser((prevUser) => ({ ...prevUser, saved: savedPosts }))
   }
 
   useEffect(() => {
@@ -87,12 +91,13 @@ function App() {
               fetchPosts={fetchPosts}
               setEditedPostId={(id) => {
                 setEditedPostId(id)
-                setMode('edit') // Set mode to edit when editing a post
+                setMode('edit')
                 setComposeModalOpen(true)
               }}
               currentUser={user}
-              updatePostLikes={updatePostLikes} // Pass the function here
-              updatePostComments={updatePostComments} // Pass the function here
+              updatePostLikes={updatePostLikes}
+              updatePostComments={updatePostComments}
+              updateCurrentUserSaved={updateCurrentUserSaved}
             />
           }
         />
@@ -102,6 +107,8 @@ function App() {
             <ProfilePage
               updatePostLikes={updatePostLikes}
               updatePostComments={updatePostComments}
+              currentUser={user}
+              updateCurrentUserSaved={updateCurrentUserSaved}
             />
           }
         />
@@ -152,8 +159,9 @@ function App() {
           selectedPost={selectedPost}
           currentUser={user}
           fetchPosts={fetchPosts}
-          updatePostLikes={updatePostLikes} // Pass the function here
-          updatePostComments={updatePostComments} // Pass the function here
+          updatePostLikes={updatePostLikes}
+          updatePostComments={updatePostComments}
+          updateCurrentUserSaved={updateCurrentUserSaved} // Add this line
         />
       )}
     </>

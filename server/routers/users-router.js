@@ -1,13 +1,45 @@
-import { Router } from "express";
-import { exampleUsers } from "../example-data/users.js";
+import { Router } from 'express'
+import { exampleUsers } from '../example-data/users.js'
 
-const usersRouter = Router();
+const usersRouter = Router()
 
-// GET /user/:userId
-usersRouter.get("/:userId", (req, res) => {
-  const userId = req.params.userId;
-  const user = exampleUsers.find((user) => user.id === userId);
-  res.json(user);
-});
+// Get all users
+usersRouter.get('/', (req, res) => {
+  res.json(exampleUsers)
+})
 
-export { usersRouter };
+// Get user by id
+usersRouter.get('/:userId', (req, res) => {
+  const user = exampleUsers.find((u) => u.id === req.params.userId)
+  if (user) {
+    res.json(user)
+  } else {
+    res.status(404).json({ error: 'User not found' })
+  }
+})
+
+// Save a post for a user
+usersRouter.patch('/:userId/save', (req, res) => {
+  const user = exampleUsers.find((u) => u.id === req.params.userId)
+  if (user) {
+    if (!user.saved.includes(req.body.postId)) {
+      user.saved.push(req.body.postId)
+    }
+    res.json(user)
+  } else {
+    res.status(404).json({ error: 'User not found' })
+  }
+})
+
+// Unsave a post for a user
+usersRouter.patch('/:userId/unsave', (req, res) => {
+  const user = exampleUsers.find((u) => u.id === req.params.userId)
+  if (user) {
+    user.saved = user.saved.filter((postId) => postId !== req.body.postId)
+    res.json(user)
+  } else {
+    res.status(404).json({ error: 'User not found' })
+  }
+})
+
+export { usersRouter }
