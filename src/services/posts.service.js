@@ -71,6 +71,18 @@ async function updatePostLikes(postId, userId) {
   return updatedPost
 }
 
+async function addComment(postId, userId, text) {
+  const response = await fetch(`${API_BASE_URL}/posts/${postId}/comment`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId, text }),
+  })
+  const updatedPost = await response.json()
+  return updatedPost
+}
+
 _createPosts()
 
 export const postService = {
@@ -79,4 +91,5 @@ export const postService = {
   addPost,
   editPost,
   updatePostLikes,
+  addComment,
 }

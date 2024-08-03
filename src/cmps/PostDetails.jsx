@@ -18,18 +18,24 @@ export const PostDetails = ({
   currentUser,
   fetchPosts,
   updatePostLikes,
+  updatePostComments,
 }) => {
   const [params, setParams] = useSearchParams()
   const [localLikes, setLocalLikes] = useState(selectedPost?.likes || [])
+  const [localComments, setLocalComments] = useState(
+    selectedPost?.comments || []
+  )
   const navigate = useNavigate()
 
   useEffect(() => {
     setLocalLikes(selectedPost?.likes || [])
+    setLocalComments(selectedPost?.comments || [])
   }, [selectedPost])
 
   const closeModal = () => {
     params.delete('postId')
     setParams(params)
+    fetchPosts() // Ensure posts are fetched when modal is closed
   }
 
   const navigateToProfile = (userId) => {
@@ -43,8 +49,19 @@ export const PostDetails = ({
         currentUser.id
       )
       setLocalLikes(updatedPost.likes)
-      fetchPosts()
       updatePostLikes(selectedPost.id, updatedPost.likes)
+    }
+  }
+
+  const handleAddComment = async (commentText) => {
+    if (currentUser && currentUser.id) {
+      const updatedPost = await postService.addComment(
+        selectedPost.id,
+        currentUser.id,
+        commentText
+      )
+      setLocalComments(updatedPost.comments)
+      updatePostComments(selectedPost.id, updatedPost.comments)
     }
   }
 
@@ -80,39 +97,7 @@ export const PostDetails = ({
                 <MoreHorizIcon className='moreIcon' />
               </div>
               <div className='commentsSection'>
-                <div className='commentWrapper'>
-                  <div className='comment'>
-                    <img
-                      src={selectedPost?.user?.imageUrl}
-                      alt={selectedPost?.user?.name}
-                      className='comment-avatar'
-                      onClick={() => navigateToProfile(selectedPost?.user?.id)}
-                      style={{ cursor: 'pointer' }}
-                    />
-                    <div className='comment-content'>
-                      <div className='comment-header'>
-                        <span
-                          className='comment-username'
-                          onClick={() =>
-                            navigateToProfile(selectedPost?.user?.id)
-                          }
-                          style={{ cursor: 'pointer' }}
-                        >
-                          {selectedPost?.user?.name}
-                        </span>
-                        <span className='comment-text'>
-                          {selectedPost?.text}
-                        </span>
-                      </div>
-                      <div className='comment-footer'>
-                        <span className='comment-timestamp'>
-                          {timeSince(selectedPost?.timestamp)}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {selectedPost?.comments?.map((comment, i) => (
+                {localComments.map((comment, i) => (
                   <div key={i} className='commentWrapper'>
                     <Comment comment={comment} />
                   </div>
@@ -141,10 +126,11 @@ export const PostDetails = ({
                 </div>
                 <AddComment
                   commenterId={currentUser.id}
-                  comments={selectedPost.comments}
+                  comments={localComments}
                   postId={selectedPost.id}
                   fetchPosts={fetchPosts}
                   showPostButton={true}
+                  addComment={handleAddComment}
                 />
               </div>
             </div>

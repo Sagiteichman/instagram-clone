@@ -40,6 +40,14 @@ function App() {
     )
   }
 
+  const updatePostComments = (postId, comments) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId ? { ...post, comments } : post
+      )
+    )
+  }
+
   useEffect(() => {
     fetchPosts()
     fetchUser()
@@ -84,11 +92,29 @@ function App() {
               }}
               currentUser={user}
               updatePostLikes={updatePostLikes} // Pass the function here
+              updatePostComments={updatePostComments} // Pass the function here
             />
           }
         />
-        <Route path='/profile/:userId' element={<ProfilePage />} />
-        <Route path='/explore' element={<Explore />} /> {/* Add this line */}
+        <Route
+          path='/profile/:userId'
+          element={
+            <ProfilePage
+              updatePostLikes={updatePostLikes}
+              updatePostComments={updatePostComments}
+            />
+          }
+        />
+        <Route
+          path='/explore'
+          element={
+            <Explore
+              posts={posts}
+              currentUser={user}
+              updatePostLikes={updatePostLikes}
+            />
+          }
+        />
       </Routes>
       {editedPost && (
         <PostCompose
@@ -127,6 +153,7 @@ function App() {
           currentUser={user}
           fetchPosts={fetchPosts}
           updatePostLikes={updatePostLikes} // Pass the function here
+          updatePostComments={updatePostComments} // Pass the function here
         />
       )}
     </>

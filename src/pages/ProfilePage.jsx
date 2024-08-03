@@ -7,8 +7,10 @@ import CommentFull from '../assets/svg/CommentFull.jsx'
 import ShowSaved from '../assets/svg/ShowSaved.jsx'
 import ShowUploaded from '../assets/svg/ShowUploaded.jsx'
 import ShowTagged from '../assets/svg/ShowTagged.jsx'
+import LikeIcon from '../assets/svg/Like.jsx'
+import CommentIcon from '../assets/svg/Comment.jsx'
 
-export function ProfilePage() {
+export function ProfilePage({ updatePostLikes, updatePostComments }) {
   const [user, setUser] = useState(null)
   const [posts, setPosts] = useState([])
   const [savedPosts, setSavedPosts] = useState([]) // New state for saved posts
@@ -49,28 +51,51 @@ export function ProfilePage() {
     setParams(params)
   }
 
+  const handleLike = async (postId) => {
+    if (currentUser && currentUser.id) {
+      const updatedPost = await postService.updatePostLikes(
+        postId,
+        currentUser.id
+      )
+      updatePostLikes(postId, updatedPost.likes)
+    }
+  }
+
   const renderPosts = (postsToRender) => {
-    return postsToRender.map((post) => (
-      <div
-        key={post.id}
-        className='profile-post'
-        onClick={() => handlePostClick(post.id)}
-      >
-        <img src={post.postImage} alt='Post' />
-        <div className='post-overlay'>
-          <div className='post-icons'>
-            <div className='post-icon'>
-              <LikeFilled />
-              <span>{post.likes.length}</span>
-            </div>
-            <div className='post-icon'>
-              <CommentFull />
-              <span>{post.comments.length}</span>
+    return postsToRender.map((post) => {
+      const isLiked = post.likes.includes(user.id)
+      const hasCommented = post.comments.some(
+        (comment) => comment.userId === user.id
+      )
+
+      return (
+        <div
+          key={post.id}
+          className='profile-post'
+          onClick={() => handlePostClick(post.id)}
+        >
+          <img src={post.postImage} alt='Post' />
+          <div className='post-overlay'>
+            <div className='post-icons'>
+              <div
+                className='post-icon'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleLike(post.id)
+                }}
+              >
+                {isLiked ? <LikeFilled /> : <LikeIcon />}
+                <span>{post.likes.length}</span>
+              </div>
+              <div className='post-icon'>
+                {hasCommented ? <CommentFull /> : <CommentIcon />}
+                <span>{post.comments.length}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ))
+      )
+    })
   }
 
   if (!user) return <div>Loading...</div>
