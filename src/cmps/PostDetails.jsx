@@ -1,5 +1,4 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Author } from './Author'
 import { Comment } from './Comment'
 import { AddComment } from './AddComment'
 import { timeSince } from '../services/timeSince'
@@ -41,19 +40,51 @@ export const PostDetails = ({ selectedPost, currentUser, fetchPosts }) => {
                   className='avatar'
                   src={selectedPost?.user?.imageUrl}
                   alt={selectedPost?.user?.name}
-                  onClick={() => navigateToProfile(selectedPost?.user?.id)} // Navigate to user profile
-                  style={{ cursor: 'pointer' }} // Add pointer cursor style
+                  onClick={() => navigateToProfile(selectedPost?.user?.id)}
+                  style={{ cursor: 'pointer' }}
                 />
                 <span
                   className='username'
-                  onClick={() => navigateToProfile(selectedPost?.user?.id)} // Navigate to user profile
-                  style={{ cursor: 'pointer' }} // Add pointer cursor style
+                  onClick={() => navigateToProfile(selectedPost?.user?.id)}
+                  style={{ cursor: 'pointer' }}
                 >
                   {selectedPost?.user?.name || 'guest'}
                 </span>
                 <MoreHorizIcon className='moreIcon' />
               </div>
               <div className='commentsSection'>
+                <div className='commentWrapper'>
+                  <div className='comment'>
+                    <img
+                      src={selectedPost?.user?.imageUrl}
+                      alt={selectedPost?.user?.name}
+                      className='comment-avatar'
+                      onClick={() => navigateToProfile(selectedPost?.user?.id)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                    <div className='comment-content'>
+                      <div className='comment-header'>
+                        <span
+                          className='comment-username'
+                          onClick={() =>
+                            navigateToProfile(selectedPost?.user?.id)
+                          }
+                          style={{ cursor: 'pointer' }}
+                        >
+                          {selectedPost?.user?.name}
+                        </span>
+                        <span className='comment-text'>
+                          {selectedPost?.text}
+                        </span>
+                      </div>
+                      <div className='comment-footer'>
+                        <span className='comment-timestamp'>
+                          {timeSince(selectedPost?.timestamp)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {selectedPost?.comments?.map((comment, i) => (
                   <div key={i} className='commentWrapper'>
                     <Comment comment={comment} />

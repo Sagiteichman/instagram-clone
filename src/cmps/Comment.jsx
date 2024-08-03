@@ -15,24 +15,29 @@ export const Comment = ({ comment }) => {
       <Avatar
         src={comment.user?.imageUrl}
         alt={comment.user?.name}
-        onClick={() => navigateToProfile(comment.user?.id)} // Navigate to user profile
-        style={{ cursor: 'pointer' }} // Add pointer cursor style
+        onClick={() => navigateToProfile(comment.user?.id)}
+        style={{ cursor: 'pointer' }}
+        className='comment-avatar'
       />
-      <div className='comment_name_and_text'>
-        <div className='comment__textarea'>
+      <div className='comment-content'>
+        <div className='comment-header'>
           <span
-            className='comment__username'
-            onClick={() => navigateToProfile(comment.user?.id)} // Navigate to user profile
-            style={{ cursor: 'pointer' }} // Add pointer cursor style
+            className='comment-username'
+            onClick={() => navigateToProfile(comment.user?.id)}
+            style={{ cursor: 'pointer' }}
           >
             {comment.user?.name}
           </span>
-          <span className='comment__comment'>{comment.text}</span>
+          <span className='comment-text'>{comment.text}</span>
         </div>
-        <span>{comment.likes > 0 && comment.likes + ' likes'}</span>
-        <div>
-          <span className='comment__text'>{timeSince(comment.timestamp)} </span>
-          <span className='comment__text'>Reply</span>
+        <div className='comment-footer'>
+          <span className='comment-timestamp'>
+            {timeSince(comment.timestamp)}
+          </span>
+          {comment.likes > 0 && (
+            <span className='comment-likes'>{comment.likes} likes</span>
+          )}
+          <span className='comment-reply'>Reply</span>
         </div>
       </div>
     </div>

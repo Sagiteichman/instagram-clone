@@ -107,7 +107,7 @@ function PostPreview({
             <SaveIcon className='postIcon' />
           </div>
         </div>
-        <div className='foother__description'>
+        <div className='footer__description'>
           <span className='footer__likes'>
             {likes?.length > 0 &&
               `${likes.length} like${likes.length > 1 ? 's' : ''}`}
@@ -116,7 +116,7 @@ function PostPreview({
             <span
               className='footer__username'
               onClick={() => navigateToProfile(user.id)} // Navigate to user profile
-              style={{ cursor: 'pointer' }} // Add pointer cursor style
+              style={{ cursor: 'pointer' }}
             >
               {user?.name || 'Guest'}
             </span>
@@ -128,7 +128,7 @@ function PostPreview({
                 className='footer__comments'
                 key={comment.userId}
                 onClick={() => navigateToProfile(comment.userId)} // Navigate to commenter's profile
-                style={{ cursor: 'pointer' }} // Add pointer cursor style
+                style={{ cursor: 'pointer' }}
               >
                 {comment.user?.name}:
                 <span className='post__comment'>{comment.text}</span>

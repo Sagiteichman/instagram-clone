@@ -1,37 +1,55 @@
 .comment {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
-}
+  padding: 8px 0;
 
-.comment_name_and_text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  text-align: start;
-
-  > div {
-    text-align: start;
+  .comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; // Ensure the avatar is circular
   }
-}
 
-.comment_time_and_actions {
-  display: flex;
-  flex-direction: row;
-}
+  .comment-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 
-.comment__text {
-  font-size: 14px;
-  color: #a8a8a8;
-  font-weight: 300;
-}
+    .comment-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+      font-size: 14px;
 
-.comment__texterea {
-  color: #f5f5f5;
-  font-size: 14px;
-}
-.comment__username {
-  font-weight: bolder;
-  margin-right: 5px;
+      .comment-username {
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .comment-text {
+        color: #fff;
+        word-break: break-word;
+      }
+    }
+
+    .comment-footer {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      color: #8e8e8e;
+
+      .comment-timestamp {
+        cursor: default;
+      }
+
+      .comment-likes {
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .comment-reply {
+        cursor: pointer;
+      }
+    }
+  }
 }
