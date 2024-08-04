@@ -47,7 +47,7 @@ export function ProfilePage({
 
   const fetchPosts = async (id) => {
     const posts = await postService.getPosts()
-    const userPosts = posts.filter((post) => post.user.id === id)
+    const userPosts = posts.filter((post) => post.userId === id)
     setPosts(userPosts)
   }
 
@@ -69,9 +69,9 @@ export function ProfilePage({
   const renderPosts = (postsToRender) => {
     return postsToRender.map((post) => {
       const isLiked = post.likes.includes(user.id)
-      const hasCommented = post.comments.some(
-        (comment) => comment.userId === user.id
-      )
+      const hasCommented =
+        Array.isArray(post.comments) &&
+        post.comments.some((comment) => comment.userId === user.id)
 
       return (
         <div
@@ -94,7 +94,9 @@ export function ProfilePage({
               </div>
               <div className='post-icon'>
                 {hasCommented ? <CommentFull /> : <CommentIcon />}
-                <span>{post.comments.length}</span>
+                <span>
+                  {Array.isArray(post.comments) ? post.comments.length : 0}
+                </span>
               </div>
             </div>
           </div>

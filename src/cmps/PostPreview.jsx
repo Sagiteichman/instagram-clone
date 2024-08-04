@@ -1,3 +1,4 @@
+// cmps/PostPreview.jsx
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -16,7 +17,7 @@ import { AddComment } from './AddComment.jsx'
 
 function PostPreview({
   id,
-  user,
+  userId,
   postImage,
   likes,
   timestamp,
@@ -32,7 +33,16 @@ function PostPreview({
   const [params, setParams] = useSearchParams()
   const [localLikes, setLocalLikes] = useState(likes)
   const [isSaved, setIsSaved] = useState(false)
+  const [user, setUser] = useState(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await userService.getUserById(userId)
+      setUser(fetchedUser)
+    }
+    fetchUser()
+  }, [userId])
 
   useEffect(() => {
     setLocalLikes(likes)
@@ -84,13 +94,14 @@ function PostPreview({
     navigate(`/profile/${userId}`)
   }
 
-  if (!id) return <div>loading...</div>
+  if (!id || !user) return <div>Loading...</div>
+
   return (
     <div className='post'>
       <div className='post__header'>
         <Author
-          name={user?.name}
-          imageUrl={user?.imageUrl || postImage}
+          name={user.name}
+          imageUrl={user.imageUrl || postImage}
           timestamp={timestamp}
           onClick={() => navigateToProfile(user.id)} // Navigate to user profile
         />
@@ -179,7 +190,7 @@ function PostPreview({
 
 PostPreview.propTypes = {
   id: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  userId: PropTypes.string.isRequired,
   postImage: PropTypes.string.isRequired,
   likes: PropTypes.array.isRequired,
   timestamp: PropTypes.string.isRequired,

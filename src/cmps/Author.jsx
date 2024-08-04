@@ -3,7 +3,7 @@ import { Avatar } from '@mui/material'
 import { timeSince } from '../services/timeSince'
 import PropTypes from 'prop-types'
 
-export const Author = ({ imageUrl, name = 'Guest', timestamp, onClick }) => {
+export const Author = ({ imageUrl, name, timestamp, onClick }) => {
   return (
     <div
       className='post__headerAuthor'
@@ -19,7 +19,7 @@ export const Author = ({ imageUrl, name = 'Guest', timestamp, onClick }) => {
 
 Author.propTypes = {
   imageUrl: PropTypes.string.isRequired,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   timestamp: PropTypes.string,
   onClick: PropTypes.func.isRequired,
 }

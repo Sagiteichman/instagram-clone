@@ -8,7 +8,7 @@ export function PostCompose({
   toggleModal,
   user,
   post,
-  mode, // Add mode prop
+  mode,
 }) {
   const [postText, setPostText] = useState('')
   const [selectedImage, setSelectedImage] = useState(post?.postImage || null)
@@ -48,7 +48,7 @@ export function PostCompose({
       await postService.addPost({
         postImage: selectedImage,
         text: postText,
-        userId: user.id,
+        userId: user.id, // Ensure the post is associated with the correct user ID
       })
     }
     await fetchPosts()
